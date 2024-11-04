@@ -34,6 +34,7 @@
 
     qimgv
     mpv
+    kitty
 
     neovim
     ffmpeg
