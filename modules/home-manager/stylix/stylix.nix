@@ -13,7 +13,7 @@
 
     stylix.image = ./wallpaper.png;
 
-    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/decaf.yaml";
+    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-light-hard.yaml";
 
   };
 
