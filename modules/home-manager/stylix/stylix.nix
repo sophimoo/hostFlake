@@ -13,7 +13,7 @@
 
     stylix.image = ./wallpaper.png;
 
-    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/jabuti.yaml";
+    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/dirtysea.yaml";
 
     stylix.targets.firefox.enable = false;
 
