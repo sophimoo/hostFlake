@@ -6,6 +6,8 @@
 
     ./home-manager/overlays/discord.nix
 
+    ./home-manager/stylix/stylix.nix
+
   ];
 
 }

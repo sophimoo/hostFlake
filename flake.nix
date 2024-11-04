@@ -4,6 +4,8 @@
   inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+
+    stylix.url = "github:danth/stylix";
     
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -19,7 +21,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-flatpak, stylix, ... }@inputs:
     
     let
       system = "x86_64-linux";  
@@ -65,6 +67,7 @@
                   home-manager.users.sophie = {
                     imports = [
                       ./hosts/nixHomeDesktop/home.nix
+                      stylix.homeManagerModules.stylix
                       nix-flatpak.homeManagerModules.nix-flatpak
                     ];
                   };
