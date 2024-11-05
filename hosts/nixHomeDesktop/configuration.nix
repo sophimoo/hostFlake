@@ -208,7 +208,7 @@ in
 #     ];
 #   };
 
-  hardware.graphics = {
+  hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
