@@ -190,6 +190,11 @@ in
       gperftools
       appimage-run
       greetd.tuigreet
+
+      miracode
+      lexend
+      monocraft
+
     ];
 
    };
