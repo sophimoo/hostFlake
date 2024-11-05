@@ -15,8 +15,6 @@
 
     stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/embers-light.yaml";
 
-    stylix.targets.firefox.enable = false;
-
   };
 
 }
