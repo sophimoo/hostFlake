@@ -48,10 +48,6 @@
     atuin
     tmux
 
-    miracode
-    lexend
-    monocraft
-
   ];
 
   services.flatpak.update.auto.enable = false;
