@@ -242,7 +242,7 @@ in
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     # package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-    hardware.nvidia.package = let
+    package = let
     fbdev_linux_611_patch = fetchpatch {
       url = "https://patch-diff.githubusercontent.com/raw/NVIDIA/open-gpu-kernel-modules/pull/692.patch";
       hash = "sha256-OYw8TsHDpBE5DBzdZCBT45+AiznzO9SfECz5/uXN5Uc=";
