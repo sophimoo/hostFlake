@@ -80,6 +80,12 @@
 
             containers = {
 
+            University = {
+                color = "blue";
+                icon = "briefcase";
+                id = 10;
+            };
+
             Microsoft = {
                 color = "green";
                 icon = "fruit";
