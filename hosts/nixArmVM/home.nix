@@ -23,14 +23,6 @@
   
   home.packages = with pkgs; [
 
-    # discord
-
-    jetbrains.pycharm-community
-
-    gamemode
-    mangohud
-    protonup
-
     qimgv
     mpv
     kitty
@@ -55,18 +47,8 @@
 
   services.flatpak.packages = [
     # { appID = ""; origin = ""; }
-    "org.prismlauncher.PrismLauncher"
-    "io.github.milkshiift.GoofCord"
     "org.qbittorrent.qBittorrent"
-    "org.libreoffice.LibreOffice"
-    "net.cozic.joplin_desktop"
-    "org.mozilla.Thunderbird"
-    "com.discordapp.Discord"
-    "com.usebottles.bottles"
-    "com.bitwarden.desktop"
     "com.obsproject.Studio"
-    "com.spotify.Client"
-    "org.signal.Signal"
   ];
 
   # This value determines the Home Manager release that your

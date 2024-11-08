@@ -1,9 +1,8 @@
-
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, fetchpatch, ... }:
+{ config, pkgs, ... }:
 
 let
   name = "sophie";
@@ -15,10 +14,7 @@ in
       ./hardware-configuration.nix
     ];
 
-  # Bootloader
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
-
+  # Bootloader.
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
@@ -31,7 +27,7 @@ in
     timeout = 5;
   };
 
-  networking.hostName = "nixHomeDesktop"; # Define your hostname.
+  networking.hostName = "nixArmVM"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -68,23 +64,29 @@ in
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
 
+  systemd.tmpfiles.rules = ["d '/var/cache/tuigreet' - greeter greeter - -"];
+
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-session --asterisks --time --greeting '${name} on nixOS!'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-session --asterisks --time --greeting 'sophie on nixOS vm!'";
         user = "greeter";
       };
     };
   };
-
-  systemd.tmpfiles.rules = ["d '/var/cache/tuigreet' - greeter greeter - -"];
 
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
+
+  # nixOS
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -106,17 +108,13 @@ in
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  security.sudo.extraConfig = ''
-    Defaults env_reset,pwfeedback
-    Defaults env_keep += "EDITOR VISUAL"
-  '';
+  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${name} = {
+
+  users.users.sophie = {
     isNormalUser = true;
-    description = "${name}";
+    description = "sophie";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
@@ -124,29 +122,7 @@ in
     ];
   };
 
-  # nix stuff
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
-
-  # Enable flatpak
-  services.flatpak.enable = true;
-
-  # Required for flatpak
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
-
   programs = {
-
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-      extest.enable = true;
-    };
 
     bash = {
       interactiveShellInit = ''
@@ -167,39 +143,36 @@ in
       ";
     };
 
-    appimage = {
-      enable = true;
-      binfmt = true;
-    };
-
   };
 
-  environment = {
 
-    variables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-    };
+  security.sudo.extraConfig = ''
+    Defaults env_reset,pwfeedback
+    Defaults env_keep += "EDITOR VISUAL"
+  '';
 
-    sessionVariables = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/user/.steam/root/compatibilitytools.d";
-    };
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
 
-    systemPackages = with pkgs; [
-      pkgsi686Linux.gperftools
-      gperftools
-      appimage-run
-      greetd.tuigreet
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 
-      miracode
-      lexend
-      monocraft
+  environment.systemPackages = with pkgs; [
 
-    ];
+    # system
+    greetd.tuigreet
+    
+    # GUI tools
+    qimgv
+    mpv
 
-   };
+    # VM specific
+    open-vm-tools
+    isoimagewriter
+  ];
 
-  # Enable OpenGL
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -207,51 +180,7 @@ in
     extraPackages = with pkgs; [
     ];
   };
-
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-
-    # Modesetting is required.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
-
-    # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
-    nvidiaSettings = false;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    # package = config.boot.kernelPackages.nvidiaPackages.beta;
-
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "560.35.03";
-      sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
-      sha256_aarch64 = "sha256-s8ZAVKvRNXpjxRYqM3E5oss5FdqW+tv1qQC2pDjfG+s=";
-      openSha256 = "sha256-/32Zf0dKrofTmPZ3Ratw4vDM7B+OgpC4p7s+RHUjCrg=";
-      settingsSha256 = "sha256-kQsvDgnxis9ANFmwIwB7HX5MkIAcpEEAHc8IBOLdXvk=";
-      persistencedSha256 = "sha256-E2J2wYYyRu7Kc3MMZz/8ZIemcZg68rkzvqEwFAL3fFs=";
-    };
-  };
-
+	
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
