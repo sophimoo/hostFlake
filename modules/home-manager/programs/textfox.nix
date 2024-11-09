@@ -24,7 +24,7 @@
 
       firefox = {
         enable = true;
-        profiles."${name}" = {
+        profiles."textfox-${name}" = {
 
           name = "Sophie <3";
           id = 0;
