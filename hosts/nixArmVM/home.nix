@@ -12,7 +12,6 @@
 
   imports = [
     ../../modules/moduleManager.nix
-    flake-inputs.flatpaks.homeManagerModules.nix-flatpak
   ];
 
   discordOverlay.enable = false;
