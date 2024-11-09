@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, flake-inputs,  ... }:
+{ config, pkgs, inputs, lib,  ... }:
 
   let
 
@@ -49,9 +49,8 @@
 
   services.flatpak.packages = [
     # { appID = ""; origin = ""; }
-    # "org.qbittorrent.qBittorrent"
-    # "com.obsproject.Studio"
-    # "com.bitwarden.desktop"
+    "org.qbittorrent.qBittorrent"
+    "com.bitwarden.desktop"
   ];
 
   # This value determines the Home Manager release that your
