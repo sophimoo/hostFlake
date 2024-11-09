@@ -91,8 +91,11 @@
       source = "${textfox}/chrome";
       recursive = true;
     };
-    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/sidebery-settings.json" = {
-      source = "${textfox}/Sidebery";
+    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/sidebery" = {
+      source = "${textfox}/sidebery-settings.json";
+    };
+    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/user.js" = {
+      source = "${textfox}/user.js";
     };
 
   };
