@@ -94,7 +94,7 @@
     home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/sidebery" = {
       source = "${textfox}/sidebery-settings.json";
     };
-    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/user.js" = {
+    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/userjs" = {
       source = "${textfox}/user.js";
     };
 
