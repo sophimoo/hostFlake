@@ -2,7 +2,7 @@
 
   let
 
-    name = "sophie";
+    name = "edgyArcfr-sophie";
 
     edgyArcChrome = pkgs.fetchzip {
       url = "https://github.com/artsyfriedchicken/EdgyArc-fr/archive/refs/heads/main.zip";
@@ -24,7 +24,7 @@
 
       firefox = {
         enable = true;
-        profiles."firefox-${name}" = {
+        profiles."${name}" = {
 
           name = "Sophie <3";
           id = 1;

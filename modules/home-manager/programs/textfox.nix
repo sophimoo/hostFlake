@@ -2,7 +2,7 @@
 
   let
 
-    name = "sophie";
+    name = "textfox-sophie";
 
     textfox = pkgs.fetchzip {
       url = "https://github.com/adriankarlen/textfox/archive/refs/heads/main.zip";
@@ -24,7 +24,7 @@
 
       firefox = {
         enable = true;
-        profiles."textfox-${name}" = {
+        profiles."${name}" = {
 
           name = "Sophie <3";
           id = 0;
