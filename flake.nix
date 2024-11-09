@@ -75,7 +75,7 @@
         };
 
         nixArmVM = lib.nixosSystem {
-          system = "aarch64-linux"
+          system = "aarch64-linux";
           modules = [
             ./hosts/nixArmVM/configuration.nix
             # using home manager as a module
