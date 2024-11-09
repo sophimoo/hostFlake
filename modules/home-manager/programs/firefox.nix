@@ -27,7 +27,7 @@
         profiles."firefox-${name}" = {
 
           name = "Sophie <3";
-          id = 0;
+          id = 1;
           isDefault = true;
 
           search = {
