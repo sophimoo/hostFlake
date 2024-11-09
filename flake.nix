@@ -24,7 +24,7 @@
   outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }@inputs:
     
     let
-      system = ${pkgs.system};
+      system = pkgs.system;
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
