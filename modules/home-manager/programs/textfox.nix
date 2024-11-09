@@ -18,7 +18,7 @@
 
       textfox = {
         enable = true;
-        profiles."${name}" = {
+        profile."${name}" = {
 
           name = "Sophie <3";
           id = 0;

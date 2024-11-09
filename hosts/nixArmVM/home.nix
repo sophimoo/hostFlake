@@ -12,13 +12,11 @@
 
   imports = [
     ../../modules/moduleManager.nix
-    inputs.textfox.homeManagerModules.default
   ];
 
   discordOverlay.enable = false;
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
-  firefox.enable = false;
-  textfoxCustom.enable = true;
+  firefox.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
