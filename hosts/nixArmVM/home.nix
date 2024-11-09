@@ -43,14 +43,14 @@
 
   ];
 
-  # services.flatpak.update.onActivation = true;
+  services.flatpak.update.onActivation = true;
   services.flatpak.uninstallUnmanaged = false;
 
   services.flatpak.packages = [
     # { appID = ""; origin = ""; }
-    "org.qbittorrent.qBittorrent"
-    "com.obsproject.Studio"
-    "com.bitwarden.desktop"
+    # "org.qbittorrent.qBittorrent"
+    # "com.obsproject.Studio"
+    # "com.bitwarden.desktop"
   ];
 
   # This value determines the Home Manager release that your
