@@ -43,6 +43,9 @@
           };
 
           settings = {
+            "browser.tabs.inTitlebar" = 0;
+            "browser.toolbars.bookmarks.visibility" = "always";
+
             "uc.tweak.hide-tabs-bar" = true;
             "uc.tweak.hide-forward-button" = true;
             "uc.tweak.rounded-corners" = true;
@@ -65,13 +68,14 @@
           };
 
           extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
-            sidebery
-            userchrome-toggle
+            multi-account-containers
             adaptive-tab-bar-colour
-            bitwarden
+            userchrome-toggle
+            auto-tab-discard
             ublock-origin
             canvasblocker
-            multi-account-containers
+            bitwarden
+            sidebery
           ];
 
           containersForce = true;

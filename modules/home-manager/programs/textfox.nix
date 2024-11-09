@@ -5,8 +5,8 @@
     name = "textfox-sophie";
 
     textfox = pkgs.fetchzip {
-      url = "https://github.com/adriankarlen/textfox/archive/refs/heads/main.zip";
-      sha256 = "056dqal46hdqdqg2xgj3di55l0g5bzrwpgk1vig7rw6166hb5fbx";
+      url = "https://github.com/sophimoo/textfox/archive/refs/heads/main.zip";
+      sha256 = "0vvs8dzs9rzykffyasg29d9dfizgpxshrv5zwzmqaifalkqwx5ri";
     };
 
   in
@@ -43,6 +43,9 @@
           };
 
           settings = {
+            "browser.tabs.inTitlebar" = 0;
+            "browser.toolbars.bookmarks.visibility" = "always";
+
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
             "svg.context-properties.content.enabled" = true;
             "layout.css.has-selector.enabled" = true;
@@ -60,14 +63,14 @@
           };
 
           extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
-            sidebery
-            userchrome-toggle
+            multi-account-containers
             adaptive-tab-bar-colour
-            bitwarden
+            userchrome-toggle
+            auto-tab-discard
             ublock-origin
             canvasblocker
-            multi-account-containers
-            firefox-color
+            bitwarden
+            sidebery
           ];
 
           containersForce = true;
