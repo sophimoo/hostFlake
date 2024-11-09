@@ -18,7 +18,7 @@
         lib.mkEnableOption "enables textfox";
   };
 
-  config = lib.mkIf config.firefox.enable {
+  config = lib.mkIf config.textfox.enable {
 
     programs = {
 
