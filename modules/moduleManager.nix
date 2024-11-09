@@ -4,8 +4,6 @@
 
     ./home-manager/programs/firefox.nix
 
-    ./home-manager/programs/textfox.nix
-
     ./home-manager/overlays/discord.nix
 
   ];

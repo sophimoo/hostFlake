@@ -19,8 +19,6 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak"; # unstable branch. Use github:gmodena/nix-flatpak/?ref=<tag> to pin releases.
 
-    textfox.url = "github:adriankarlen/textfox";
-
   };
 
   outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }@inputs:
