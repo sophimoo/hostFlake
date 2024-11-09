@@ -50,6 +50,7 @@
     # { appID = ""; origin = ""; }
     "org.qbittorrent.qBittorrent"
     "com.obsproject.Studio"
+    "com.bitwarden.desktop"
   ];
 
   # This value determines the Home Manager release that your
