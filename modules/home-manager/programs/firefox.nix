@@ -28,7 +28,6 @@
 
           name = "Sophie <3";
           id = 1;
-          isDefault = true;
 
           search = {
             force = true; # Firefox often replaces the symlink, so force on update
