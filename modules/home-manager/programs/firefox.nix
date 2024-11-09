@@ -26,7 +26,7 @@
         enable = true;
         profiles."${name}" = {
 
-          name = "Sophie <3";
+          name = "Edgy Sophie <3";
           id = 1;
 
           search = {
