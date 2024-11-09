@@ -25,7 +25,7 @@
     
     let
       system = "x86_64-linux";  
-
+      virtualSystem = "aarch64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -76,7 +76,7 @@
         };
 
         nixArmVM = lib.nixosSystem {
-          inherit "aarch64-linux";
+          inherit virtualSystem;
           modules = [
             ./hosts/nixArmVM/configuration.nix
             # using home manager as a module
