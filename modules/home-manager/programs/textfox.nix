@@ -44,6 +44,10 @@
           };
 
           settings = {
+            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+            "svg.context-properties.content.enabled" = true;
+            "layout.css.has-selector.enabled" = true;
+
             "shyfox.enable.ext.mono.toolbar.icons" = true;
             "shyfox.enable.ext.mono.context.icons" = true;
             "shyfox.enable.context.menu.icons" = true;
@@ -91,11 +95,8 @@
       source = "${textfox}/chrome";
       recursive = true;
     };
-    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/sidebery" = {
+    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/sidebery-settings.json" = {
       source = "${textfox}/sidebery-settings.json";
-    };
-    home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/userjs" = {
-      source = "${textfox}/user.js";
     };
 
   };
