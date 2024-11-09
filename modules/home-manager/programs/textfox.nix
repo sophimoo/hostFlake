@@ -27,7 +27,7 @@
         profiles."${name}" = {
 
           name = "TUI Sophie <3";
-          id = 1;
+          id = 0;
 
           search = {
             force = true; # Firefox often replaces the symlink, so force on update
