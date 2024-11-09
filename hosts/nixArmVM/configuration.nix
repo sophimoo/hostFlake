@@ -88,6 +88,15 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Enable flatpak
+  services.flatpak.enable = true;
+
+  # Required for flatpak
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
