@@ -6,7 +6,7 @@
 
     textfox = pkgs.fetchzip {
       url = "https://github.com/adriankarlen/textfox/archive/refs/heads/main.zip";
-      sha256 = "4a2f1860f721ead0799b1f7e95aad263017da3f34c5f8809f18c3e5293bcd58b";
+      sha256 = "0000000000000000000000000000000000000000000000000000";
     };
 
   in
