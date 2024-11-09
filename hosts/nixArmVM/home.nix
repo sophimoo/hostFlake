@@ -43,7 +43,7 @@
 
   ];
 
-  services.flatpak.update.onActivation = true;
+  # services.flatpak.update.onActivation = true;
   services.flatpak.uninstallUnmanaged = false;
 
   services.flatpak.packages = [
