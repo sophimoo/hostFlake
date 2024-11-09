@@ -16,8 +16,6 @@
 
   config = lib.mkIf config.firefox.enable {
 
-      imports = [ inputs.textfox.homeManagerModules.default ];
-
       textfox = {
         enable = true;
         profiles."${name}" = {

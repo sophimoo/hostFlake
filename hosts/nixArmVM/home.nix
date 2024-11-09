@@ -12,6 +12,7 @@
 
   imports = [
     ../../modules/moduleManager.nix
+    inputs.textfox.homeManagerModules.default
   ];
 
   discordOverlay.enable = false;
