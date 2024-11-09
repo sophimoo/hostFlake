@@ -22,31 +22,28 @@
 
     programs = {
 
-        firefox = {
+      firefox = {
         enable = true;
         profiles."${name}" = {
 
-            id = 0;
-            name = "Sophie <3";
-            isDefault = true;
-            containersForce = true;
+          name = "Sophie <3";
+          id = 0;
+          isDefault = true;
 
-            search = {
-
+          search = {
             force = true; # Firefox often replaces the symlink, so force on update
             default = "Startpage";
-
             engines = {
-                "Startpage" = {
+              "Startpage" = {
                 urls = [{ template = "https://startpage.com/rvd/search?query={searchTerms}&language=auto"; }];
-                iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/mobile/android-icon-192x192.png";
+                iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/mobile android-icon-192x192.png";
                 updateInterval = 24 * 60 * 60 * 1000; # every day
                 definedAliases = [ "@s" ];
-                };
+              };
             };
-            };
+          };
 
-            settings = {
+          settings = {
             "uc.tweak.hide-tabs-bar" = true;
             "uc.tweak.hide-forward-button" = true;
             "uc.tweak.rounded-corners" = true;
@@ -66,9 +63,9 @@
 
             "browser.aboutConfig.showWarning" = false;
             "browser.toolbars.bookmarks.visibility" = "always";
-            };
+          };
 
-            extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+          extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
             sidebery
             userchrome-toggle
             adaptive-tab-bar-colour
@@ -76,85 +73,35 @@
             ublock-origin
             canvasblocker
             multi-account-containers
-            ];
+          ];
 
-            containers = {
-
-            University = {
-                color = "blue";
-                icon = "briefcase";
-                id = 10;
-            };
-
-            Microsoft = {
-                color = "green";
-                icon = "fruit";
-                id = 9;
-            };
-
-            Apple = {
-                color = "turquoise";
-                icon = "fruit";
-                id = 8;
-            };
-
-            Google = {
-                color = "yellow";
-                icon = "fruit";
-                id = 7;
-            };
-
-            Reddit = {
-                color = "orange";
-                icon = "pet";
-                id = 6;
-            };
-
-            Protonmail = {
-                color = "pink";
-                icon = "briefcase";
-                id = 5;
-            };
-
-            Mailbox = {
-                color = "green";
-                icon = "briefcase";
-                id = 4;
-            };
-
-            Yahoo = {
-                color = "purple";
-                icon = "briefcase";
-                id = 3;
-            };
-
-            Cockmail = {
-                color = "turquoise";
-                icon = "briefcase";
-                id = 2;
-            };
-
-            Whatsapp = {
-                color = "green";
-                icon = "tree";
-                id = 1;
-            };
-
-            };
+          containersForce = true;
+          containers = {
+            Protonmail = {   color = "pink";  icon = "briefcase";  id = 10; };
+            Cockmail = { color = "turquoise"; icon = "briefcase"; id = 9; };
+            University = { color = "blue"; icon = "briefcase"; id = 8; };
+            Mailbox = { color = "green"; icon = "briefcase"; id = 7; };
+            Yahoo = { color = "purple"; icon = "briefcase"; id = 6; };
+            Microsoft = { color = "green"; icon = "fruit"; id = 5; };
+            Apple = { color = "turquoise"; icon = "fruit"; id = 4; };
+            Google = { color = "yellow"; icon = "fruit"; id = 3; };
+            Whatsapp = { color = "green"; icon = "tree"; id = 2; };
+            Reddit = { color = "orange"; icon = "pet"; id = 1; };
+          };
 
         };
 
-        };
+      };
 
     };
 
     home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/chrome/" = {
-        source = "${edgyArcChrome}/chrome";
-        recursive = true;
+      source = "${edgyArcChrome}/chrome";
+      recursive = true;
     };
     home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/sidebery/" = {
-        source = "${edgyArcChrome}/Sidebery";
-        recursive = true;
+      source = "${edgyArcChrome}/Sidebery";
+      recursive = true;
     };
 
   };

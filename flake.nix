@@ -3,7 +3,9 @@
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-24.05";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -43,13 +45,13 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-                  home-manager.extraSpecialArgs = { inherit inputs; };
-                  home-manager.users.sophie = {
-                    imports = [ 
-                      ./hosts/nix2015air/home.nix
-                      nix-flatpak.homeManagerModules.nix-flatpak
-                    ];
-                  };
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.sophie = {
+                imports = [
+                  ./hosts/nix2015air/home.nix
+                  nix-flatpak.homeManagerModules.nix-flatpak
+                ];
+              };
             }
           ];
         };
@@ -62,13 +64,32 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-                  home-manager.extraSpecialArgs = { inherit inputs; };
-                  home-manager.users.sophie = {
-                    imports = [
-                      ./hosts/nixHomeDesktop/home.nix
-                      nix-flatpak.homeManagerModules.nix-flatpak
-                    ];
-                  };
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.sophie = {
+                imports = [
+                  ./hosts/nixHomeDesktop/home.nix
+                  nix-flatpak.homeManagerModules.nix-flatpak
+                ];
+              };
+            }
+          ];
+        };
+
+        nixArmVM = lib.nixosSystem {
+          inherit "aarch64-linux";
+          modules = [
+            ./hosts/nixArmVM/configuration.nix
+            # using home manager as a module
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.sophie = {
+                imports = [
+                  ./hosts/nixArmVM/home.nix
+                  nix-flatpak.homeManagerModules.nix-flatpak
+                ];
+              };
             }
           ];
         };
