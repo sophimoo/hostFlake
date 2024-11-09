@@ -43,9 +43,6 @@
           };
 
           settings = {
-            "browser.tabs.inTitlebar" = 0;
-            "browser.toolbars.bookmarks.visibility" = "always";
-
             "uc.tweak.hide-tabs-bar" = true;
             "uc.tweak.hide-forward-button" = true;
             "uc.tweak.rounded-corners" = true;
@@ -63,6 +60,7 @@
             "extensions.getAddons.showPane" = false;
             "extensions.htmlaboutaddons.recommendations.enabled" = false;
 
+            "browser.tabs.inTitlebar" = 0;
             "browser.aboutConfig.showWarning" = false;
             "browser.toolbars.bookmarks.visibility" = "always";
           };
