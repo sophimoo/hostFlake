@@ -12,6 +12,7 @@
 
   imports = [
     ../../modules/moduleManager.nix
+    flake-inputs.flatpaks.homeManagerModules.nix-flatpak
   ];
 
   discordOverlay.enable = false;
@@ -43,7 +44,7 @@
 
   ];
 
-  services.flatpak.update.onActivation = true;
+  services.flatpak.update.auto.enable = false;
   services.flatpak.uninstallUnmanaged = false;
 
   services.flatpak.packages = [
