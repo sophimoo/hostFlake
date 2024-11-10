@@ -28,6 +28,7 @@ in
   };
 
   boot.plymouth.enable = true;
+  boot.plymouth.theme="breeze";
 
   networking.hostName = "nixArmVM"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
