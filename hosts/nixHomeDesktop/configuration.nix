@@ -31,6 +31,10 @@ in
     timeout = 5;
   };
 
+  boot.plymouth.enable = true;
+  boot.plymouth.theme="breeze";
+
+
   networking.hostName = "nixHomeDesktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
