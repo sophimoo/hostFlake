@@ -14,14 +14,12 @@
 {
 
   options = {
-    textfox.enable =
-        lib.mkEnableOption "enables textfox";
+    textfox.enable = lib.mkEnableOption "enables textfox";
   };
 
   config = lib.mkIf config.textfox.enable {
 
     programs = {
-
       firefox = {
         enable = true;
         profiles."${name}" = {
@@ -84,11 +82,8 @@
             Whatsapp = { color = "green"; icon = "tree"; id = 2; };
             Reddit = { color = "orange"; icon = "pet"; id = 1; };
           };
-
         };
-
       };
-
     };
 
     home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/chrome/" = {

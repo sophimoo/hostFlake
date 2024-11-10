@@ -14,14 +14,12 @@
 {
 
   options = {
-    firefox.enable =
-        lib.mkEnableOption "enables firefox";
+    firefox.enable = lib.mkEnableOption "enables firefox";
   };
 
   config = lib.mkIf config.firefox.enable {
 
     programs = {
-
       firefox = {
         enable = true;
         profiles."${name}" = {
@@ -91,9 +89,7 @@
           };
 
         };
-
       };
-
     };
 
     home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/chrome/" = {
