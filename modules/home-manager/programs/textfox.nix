@@ -14,14 +14,12 @@
 {
 
   options = {
-    textfox.enable =
-        lib.mkEnableOption "enables textfox";
+    textfox.enable = lib.mkEnableOption "enables textfox";
   };
 
   config = lib.mkIf config.textfox.enable {
 
     programs = {
-
       firefox = {
         enable = true;
         profiles."${name}" = {
@@ -72,9 +70,7 @@
           ];
 
         };
-
       };
-
     };
 
     home.file."${config.home.homeDirectory}/.mozilla/firefox/${name}/chrome/" = {

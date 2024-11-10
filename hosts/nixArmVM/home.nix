@@ -18,6 +18,7 @@
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
   firefox.enable = true;
   textfox.enable = true;
+  btop.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
@@ -36,14 +37,13 @@
     ranger
     lf
     rsync
-    btop
     fastfetch
     atuin
     tmux
 
   ];
 
-  services.flatpak.update.auto.enable = false;
+  services.flatpak.update.auto.enable = true;
   services.flatpak.uninstallUnmanaged = false;
 
   services.flatpak.packages = [
