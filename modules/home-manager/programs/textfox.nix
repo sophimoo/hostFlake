@@ -88,14 +88,17 @@
           bookmarks = [
             {
               name = "Protonmail";
+              toolbar = true;
               url = "https://mail.proton.me";
             }
             {
               name = "Mailbox";
+              toolbar = true;
               url = "https://mail.proton.me";
             }
             {
               name = "Yahoo mail";
+              toolbar = true;
               url = "https://mail.yahoo.com/";
             }
           ];
