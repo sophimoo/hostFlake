@@ -152,6 +152,10 @@ in
       ";
     };
 
+    plymouth = {
+      enable = true;
+    };
+
   };
 
 
