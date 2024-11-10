@@ -87,19 +87,19 @@
 
           bookmarks = [
             {
-              name = "Protonmail"
-              tags = "email"
-              url = "https://mail.proton.me"
+              name = "Protonmail";
+              tags = "email";
+              url = "https://mail.proton.me";
             }
             {
-              name = "Mailbox"
-              tags = "email"
-              url = "https://mail.proton.me"
+              name = "Mailbox";
+              tags = "email";
+              url = "https://mail.proton.me";
             }
             {
-              name = "Yahoo mail"
-              tags = "email"
-              url = "https://mail.yahoo.com/"
+              name = "Yahoo mail";
+              tags = "email";
+              url = "https://mail.yahoo.com/";
             }
           ];
 
