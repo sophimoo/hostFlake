@@ -76,20 +76,6 @@
             sidebery
           ];
 
-          containersForce = true;
-          containers = {
-            Protonmail = {   color = "pink";  icon = "briefcase";  id = 10; };
-            Cockmail = { color = "turquoise"; icon = "briefcase"; id = 9; };
-            University = { color = "blue"; icon = "briefcase"; id = 8; };
-            Mailbox = { color = "green"; icon = "briefcase"; id = 7; };
-            Yahoo = { color = "purple"; icon = "briefcase"; id = 6; };
-            Microsoft = { color = "green"; icon = "fruit"; id = 5; };
-            Apple = { color = "turquoise"; icon = "fruit"; id = 4; };
-            Google = { color = "yellow"; icon = "fruit"; id = 3; };
-            Whatsapp = { color = "green"; icon = "tree"; id = 2; };
-            Reddit = { color = "orange"; icon = "pet"; id = 1; };
-          };
-
         };
 
       };
