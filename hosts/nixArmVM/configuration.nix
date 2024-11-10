@@ -27,6 +27,8 @@ in
     timeout = 5;
   };
 
+  boot.plymouth.enable
+
   networking.hostName = "nixArmVM"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -150,10 +152,6 @@ in
         set fish_greeting # Disable greeting\n
         fastfetch\n
       ";
-    };
-
-    plymouth = {
-      enable = true;
     };
 
   };
