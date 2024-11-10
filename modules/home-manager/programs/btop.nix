@@ -13,8 +13,8 @@
 
         enable = true;
         settings = {
-          theme_background = False;
-          truecolor = False;
+          theme_background = false;
+          truecolor = false;
           update_ms = 100;
         };
 
