@@ -20,7 +20,7 @@ in
   # boot.loader.efi.canTouchEfiVariables = true;
   
   boot.blacklistedKernelModules = ["nouveau"];
-
+  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
@@ -227,7 +227,7 @@ in
   hardware.nvidia = {
 
     # Modesetting is required.
-    modesetting.enable = false;
+    modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
