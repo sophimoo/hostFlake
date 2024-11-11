@@ -3,7 +3,7 @@
 
   inputs = {
 
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     hm-unstable.url = "github:nix-community/home-manager";
     hm-unstable.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
@@ -65,7 +65,7 @@
           modules = [
             ./hosts/nixHomeDesktop/configuration.nix
             # using home manager as a module
-            home-manager.nixosModules.home-manager {
+            hm-unstable.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
