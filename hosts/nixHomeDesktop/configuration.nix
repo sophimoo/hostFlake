@@ -69,7 +69,7 @@ in
   services.xserver.enable = true;
   services.xserver.autorun = false;
   services.xserver.displayManager.startx.enable = true;
-
+  services.xserver.displayManager.greetd.enable = true;
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
 
@@ -184,6 +184,7 @@ in
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
 
     sessionVariables = {
