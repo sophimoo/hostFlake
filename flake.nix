@@ -3,6 +3,11 @@
 
   inputs = {
 
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    hm-unstable.url = "github:nix-community/home-manager";
+    hm-unstable.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
     home-manager.url = "github:nix-community/home-manager/release-24.05";
@@ -15,7 +20,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }@inputs:
+  outputs = { self, nixpkgs-unstable, hm-unstable, nixpkgs, home-manager, nix-flatpak, ... }@inputs:
     
     let
       system = "x86_64-linux";
@@ -24,7 +29,13 @@
         config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
-    
+
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      lib-unstable = nixpkgs-unstable.lib;
+
     in 
     {
 
@@ -49,7 +60,7 @@
           ];
         };
 
-        nixHomeDesktop = lib.nixosSystem {
+        nixHomeDesktop = lib-unstable.nixosSystem {
           inherit system;
           modules = [
             ./hosts/nixHomeDesktop/configuration.nix
