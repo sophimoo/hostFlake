@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     hm-unstable.url = "github:nix-community/home-manager";
-    hm-unstable.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    hm-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
