@@ -16,23 +16,26 @@ in
     ];
 
   # Bootloader
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
-  
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      devices = [ "nodev" ];
-      efiSupport = true;
-      useOSProber = true;
-      configurationLimit = 5;
-    };
-    timeout = 5;
-  };
+  boot = {
 
-  boot.plymouth.enable = true;
-  boot.plymouth.theme="breeze";
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        devices = [ "nodev" ];
+        efiSupport = true;
+        useOSProber = true;
+        configurationLimit = 5;
+      };
+      timeout = 5;
+    };
+
+    plymouth = {
+      enable = true;
+      theme = "breeze";
+    };
+
+  };
 
   networking.hostName = "nixHomeDesktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -121,7 +124,7 @@ in
   users.users.${name} = {
     isNormalUser = true;
     description = "${name}";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -191,6 +194,7 @@ in
     };
 
     systemPackages = with pkgs; [
+
       pkgsi686Linux.gperftools
       gperftools
       appimage-run
@@ -202,7 +206,10 @@ in
 
     ];
 
-   };
+  };
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # Enable OpenGL
   hardware.opengl = {
@@ -211,14 +218,6 @@ in
     extraPackages = with pkgs; [
     ];
   };
-
-#   hardware.opengl = {
-#     enable = true;
-#     driSupport = true;
-#     driSupport32Bit = true;
-#     extraPackages = with pkgs; [
-#     ];
-#   };
 
   # Load nvidia driver for Xorg and Wayland
 
