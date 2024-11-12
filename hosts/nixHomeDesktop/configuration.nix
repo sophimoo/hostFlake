@@ -3,7 +3,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, pkgs-unstable, fetchpatch, ... }:
+{ config, pkgs, fetchpatch, ... }:
 
 let
   name = "sophie";
@@ -19,8 +19,6 @@ in
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
   
-  boot.blacklistedKernelModules = ["nouveau"];
-  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
@@ -64,11 +62,18 @@ in
     LC_TIME = "de_AT.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-  services.xserver.autorun = false;
-  services.xserver.displayManager.startx.enable = true;
+  services.xserver = {
+    enable = true;
+    autorun = false;
+    # Configure keymap in X11
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
+
+    videoDrivers = ["nvidia"];
+
+  };
 
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
@@ -84,12 +89,6 @@ in
   };
 
   systemd.tmpfiles.rules = ["d '/var/cache/tuigreet' - greeter greeter - -"];
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -222,7 +221,6 @@ in
 #   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
 

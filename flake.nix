@@ -60,12 +60,12 @@
           ];
         };
 
-        nixHomeDesktop = lib-unstable.nixosSystem {
+        nixHomeDesktop = lib.nixosSystem {
           inherit system;
           modules = [
             ./hosts/nixHomeDesktop/configuration.nix
             # using home manager as a module
-            hm-unstable.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
