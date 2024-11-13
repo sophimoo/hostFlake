@@ -12,7 +12,7 @@ let
 
   textfox = pkgs.fetchzip {
     url = "https://github.com/sophimoo/textfox/archive/refs/heads/main.zip";
-    sha256 = "1hv53mkfbda7nj4w4rrlss2y38gqa3aj0ikqx8rqz29n8anck0w6";
+    sha256 = "0yiajqx69fajss6x60lijlnv4ylrka1ckhawcw4gvanj5q0v9ckn";
   };
 
 in
