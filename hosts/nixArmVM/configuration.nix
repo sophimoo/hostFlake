@@ -192,10 +192,18 @@ in
 
   hardware.opengl = {
     enable = true;
-    driSupport = true;
     # driSupport32Bit = true;
     extraPackages = with pkgs; [ ];
   };
+
+
+#   hardware.opengl = {
+#     enable = true;
+#     driSupport = true;
+#     # driSupport32Bit = true;
+#     extraPackages = with pkgs; [
+#     ];
+#   };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

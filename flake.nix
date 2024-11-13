@@ -94,12 +94,12 @@
           ];
         };
 
-        nixArmVM = lib.nixosSystem {
+        nixArmVM = lib-unstable.nixosSystem {
           system = "aarch64-linux";
           modules = [
             ./hosts/nixArmVM/configuration.nix
             # using home manager as a module
-            home-manager.nixosModules.home-manager
+            hm-unstable.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
