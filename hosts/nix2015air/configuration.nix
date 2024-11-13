@@ -1,4 +1,3 @@
-
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
@@ -10,10 +9,10 @@ let
 in
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader
   # boot.loader.systemd-boot.enable = true;
@@ -97,7 +96,7 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = ["d '/var/cache/tuigreet' - greeter greeter - -"];
+  systemd.tmpfiles.rules = [ "d '/var/cache/tuigreet' - greeter greeter - -" ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -132,20 +131,26 @@ in
   users.users.${name} = {
     isNormalUser = true;
     description = "${name}";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
   # nix stuff
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.allowUnfree = true;
 
   # Enable flatpak
   services.flatpak.enable = true;
-  
+
   # Required for flatpak
   xdg.portal = {
     enable = true;
@@ -205,7 +210,7 @@ in
       greetd.tuigreet
     ];
 
-   };
+  };
 
   security.sudo.extraConfig = ''
     Defaults env_reset,pwfeedback

@@ -1,18 +1,22 @@
-{ config, pkgs, inputs, lib,  ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 
-  let
+let
 
-    name = "sophie";
+  name = "sophie";
 
-  in
+in
 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
 
-  imports = [
-    ../../modules/moduleManager.nix
-  ];
+  imports = [ ../../modules/moduleManager.nix ];
 
   discordOverlay.enable = false;
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
@@ -22,7 +26,7 @@
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
-  
+
   home.packages = with pkgs; [
 
     qimgv

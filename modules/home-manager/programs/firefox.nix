@@ -1,15 +1,21 @@
-{ pkgs, lib, config, inputs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
 
-  let
+let
 
-    name = "edgyArcfr-sophie";
+  name = "edgyArcfr-sophie";
 
-    edgyArcChrome = pkgs.fetchzip {
-      url = "https://github.com/artsyfriedchicken/EdgyArc-fr/archive/refs/heads/main.zip";
-      sha256 = "0ij4bz2z6ny83fax70h8i6rzlzh49k9jz1ihj2yqjrh76c6xiz1a";
-    };
+  edgyArcChrome = pkgs.fetchzip {
+    url = "https://github.com/artsyfriedchicken/EdgyArc-fr/archive/refs/heads/main.zip";
+    sha256 = "0ij4bz2z6ny83fax70h8i6rzlzh49k9jz1ihj2yqjrh76c6xiz1a";
+  };
 
-  in
+in
 
 {
 
@@ -32,7 +38,7 @@
             default = "Startpage";
             engines = {
               "Startpage" = {
-                urls = [{ template = "https://startpage.com/rvd/search?query={searchTerms}&language=auto"; }];
+                urls = [ { template = "https://startpage.com/rvd/search?query={searchTerms}&language=auto"; } ];
                 iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/mobile android-icon-192x192.png";
                 updateInterval = 24 * 60 * 60 * 1000; # every day
                 definedAliases = [ "@s" ];

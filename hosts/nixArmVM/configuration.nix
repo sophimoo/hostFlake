@@ -9,10 +9,10 @@ let
 in
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader = {
@@ -28,7 +28,7 @@ in
   };
 
   boot.plymouth.enable = true;
-  boot.plymouth.theme="breeze";
+  boot.plymouth.theme = "breeze";
 
   networking.hostName = "nixArmVM"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -67,7 +67,7 @@ in
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
 
-  systemd.tmpfiles.rules = ["d '/var/cache/tuigreet' - greeter greeter - -"];
+  systemd.tmpfiles.rules = [ "d '/var/cache/tuigreet' - greeter greeter - -" ];
 
   services.greetd = {
     enable = true;
@@ -86,7 +86,10 @@ in
   };
 
   # nixOS
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -127,10 +130,13 @@ in
   users.users.sophie = {
     isNormalUser = true;
     description = "sophie";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -157,7 +163,6 @@ in
 
   };
 
-
   security.sudo.extraConfig = ''
     Defaults env_reset,pwfeedback
     Defaults env_keep += "EDITOR VISUAL"
@@ -175,7 +180,7 @@ in
 
     # system
     greetd.tuigreet
-    
+
     # GUI tools
     qimgv
     mpv
@@ -189,10 +194,9 @@ in
     enable = true;
     driSupport = true;
     # driSupport32Bit = true;
-    extraPackages = with pkgs; [
-    ];
+    extraPackages = with pkgs; [ ];
   };
-	
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

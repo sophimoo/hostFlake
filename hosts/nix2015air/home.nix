@@ -1,27 +1,31 @@
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 
-  let
+let
 
-    name = "sophie";
+  name = "sophie";
 
-  in
+in
 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
 
-  imports = [
-    ../../modules/home-manager/moduleManager.nix
-  ];
+  imports = [ ../../modules/home-manager/moduleManager.nix ];
 
   discordOverlay.enable = false;
   firefox.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
-  
+
   home.packages = with pkgs; [
-  
+
     # discord
 
     jetbrains.pycharm-community

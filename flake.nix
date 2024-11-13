@@ -20,8 +20,17 @@
 
   };
 
-  outputs = { self, nixpkgs-unstable, hm-unstable, nixpkgs, home-manager, nix-flatpak, ... }@inputs:
-    
+  outputs =
+    {
+      self,
+      nixpkgs-unstable,
+      hm-unstable,
+      nixpkgs,
+      home-manager,
+      nix-flatpak,
+      ...
+    }@inputs:
+
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -36,7 +45,7 @@
       };
       lib-unstable = nixpkgs-unstable.lib;
 
-    in 
+    in
     {
 
       nixosConfigurations = {
@@ -46,10 +55,13 @@
           modules = [
             ./hosts/nix2015air/configuration.nix
             # using home manager as a module
-            home-manager.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager
+            {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+              };
               home-manager.users.sophie = {
                 imports = [
                   ./hosts/nix2015air/home.nix
@@ -65,10 +77,13 @@
           modules = [
             ./hosts/nixHomeDesktop/configuration.nix
             # using home manager as a module
-            home-manager.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager
+            {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+              };
               home-manager.users.sophie = {
                 imports = [
                   ./hosts/nixHomeDesktop/home.nix
@@ -84,10 +99,13 @@
           modules = [
             ./hosts/nixArmVM/configuration.nix
             # using home manager as a module
-            home-manager.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager
+            {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+              };
               home-manager.users.sophie = {
                 imports = [
                   ./hosts/nixArmVM/home.nix

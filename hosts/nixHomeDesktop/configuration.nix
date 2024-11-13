@@ -1,19 +1,23 @@
-
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, fetchpatch, ... }:
+{
+  config,
+  pkgs,
+  fetchpatch,
+  ...
+}:
 
 let
   name = "sophie";
 in
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader
   boot = {
@@ -29,6 +33,8 @@ in
       };
       timeout = 5;
     };
+
+    kernelParams = [ "amd_iommu=on" ];
 
     plymouth = {
       enable = true;
@@ -66,6 +72,7 @@ in
   };
 
   services.xserver = {
+
     enable = true;
     autorun = false;
     # Configure keymap in X11
@@ -74,12 +81,14 @@ in
       variant = "";
     };
 
-    videoDrivers = ["nvidia"];
+    videoDrivers = [ "nvidia" ];
 
   };
 
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
+  # Enable hyprland
+  programs.hyprland.enable = true;
 
   services.greetd = {
     enable = true;
@@ -91,7 +100,7 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = ["d '/var/cache/tuigreet' - greeter greeter - -"];
+  systemd.tmpfiles.rules = [ "d '/var/cache/tuigreet' - greeter greeter - -" ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -124,15 +133,22 @@ in
   users.users.${name} = {
     isNormalUser = true;
     description = "${name}";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+    ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
   # nix stuff
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.allowUnfree = true;
 
   # Enable flatpak
@@ -204,19 +220,48 @@ in
       lexend
       monocraft
 
+      nixfmt-rfc-style
+
+      virtio-win
+      virt-manager
+      virt-viewer
+      spice
+      spice-gtk
+      spice-protocol
+      win-virtio
+      win-spice
     ];
 
   };
 
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
+  services.spice-vdagentd.enable = true;
+
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd
+          ];
+        };
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
 
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-    ];
+    extraPackages = with pkgs; [ ];
   };
 
   # Load nvidia driver for Xorg and Wayland
@@ -246,7 +291,7 @@ in
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = false;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.

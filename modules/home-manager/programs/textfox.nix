@@ -1,15 +1,21 @@
-{ pkgs, lib, config, inputs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
 
-  let
+let
 
-    name = "textfox-sophie";
+  name = "textfox-sophie";
 
-    textfox = pkgs.fetchzip {
-      url = "https://github.com/sophimoo/textfox/archive/refs/heads/main.zip";
-      sha256 = "0vvs8dzs9rzykffyasg29d9dfizgpxshrv5zwzmqaifalkqwx5ri";
-    };
+  textfox = pkgs.fetchzip {
+    url = "https://github.com/sophimoo/textfox/archive/refs/heads/main.zip";
+    sha256 = "0vvs8dzs9rzykffyasg29d9dfizgpxshrv5zwzmqaifalkqwx5ri";
+  };
 
-  in
+in
 
 {
 
@@ -32,7 +38,7 @@
             default = "Startpage";
             engines = {
               "Startpage" = {
-                urls = [{ template = "https://startpage.com/rvd/search?query={searchTerms}&language=auto"; }];
+                urls = [ { template = "https://startpage.com/rvd/search?query={searchTerms}&language=auto"; } ];
                 iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/mobile android-icon-192x192.png";
                 updateInterval = 24 * 60 * 60 * 1000; # every day
                 definedAliases = [ "@s" ];
@@ -84,4 +90,3 @@
   };
 
 }
-

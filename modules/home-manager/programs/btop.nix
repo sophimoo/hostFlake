@@ -17,10 +17,7 @@
           truecolor = false;
           update_ms = 100;
         };
-
       };
     };
-
   };
-
 }
