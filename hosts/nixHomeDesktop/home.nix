@@ -72,6 +72,7 @@ in
     "com.bitwarden.desktop"
     "com.obsproject.Studio"
     "com.spotify.Client"
+    "io.gpt4all.gpt4all"
     "org.signal.Signal"
   ];
 
