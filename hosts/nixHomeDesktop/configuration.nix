@@ -237,6 +237,21 @@ in
   services.spice-vdagentd.enable = true;
 
   virtualisation = {
+
+    virtualbox = {
+      host = {
+        enable = true;
+        enableKvm = true;
+        enableExtensionPack = true;
+        addNetworkInterface = false;
+      };
+      guest = {
+        enable = true;
+        clipboard = true;
+        draganddrop = true;
+      };
+    };
+
     libvirtd = {
       enable = true;
       qemu = {
@@ -256,6 +271,8 @@ in
     };
     spiceUSBRedirection.enable = true;
   };
+
+  users.extraGroups.vboxusers.members = [ "${name}" ];
 
   # Enable OpenGL
   hardware.opengl = {
