@@ -23,6 +23,7 @@ in
   firefox.enable = true;
   textfox.enable = true;
   btop.enable = true;
+  kitty.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
@@ -39,7 +40,6 @@ in
 
     qimgv
     mpv
-    kitty
 
     neovim
     ffmpeg
@@ -53,6 +53,7 @@ in
     fastfetch
     atuin
     tmux
+    tree
 
   ];
 

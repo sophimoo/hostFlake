@@ -9,6 +9,8 @@
 
     ./home-manager/programs/btop.nix
 
+    ./home-manager/programs/kitty.nix
+
     ./home-manager/overlays/discord.nix
 
   ];
