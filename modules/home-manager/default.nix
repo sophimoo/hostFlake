@@ -2,7 +2,8 @@
 {
 
   imports = [
-    ./home-manager
+    ./overlays
+    ./programs
   ];
 
 }

@@ -2,7 +2,7 @@
 {
 
   imports = [
-    ./home-manager
+    ./discord.nix
   ];
 
 }
