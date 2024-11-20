@@ -23,6 +23,7 @@ in
   firefox.enable = true;
   textfox.enable = true;
   btop.enable = true;
+  kitty.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";

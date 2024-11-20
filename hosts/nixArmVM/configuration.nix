@@ -181,9 +181,11 @@ in
     # system
     greetd.tuigreet
 
-    # GUI tools
-    qimgv
-    mpv
+    lexend
+    miracode
+    monocraft
+
+    nixfmt-rfc-style
 
     # VM specific
     open-vm-tools
