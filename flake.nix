@@ -31,6 +31,7 @@
       nixpkgs,
       home-manager,
       nix-flatpak,
+      spicetify-nix,
       ...
     }@inputs:
 
