@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 {
 
-  imports = [
-    ./discord.nix
-  ];
+  imports = [ ./discord.nix ];
 
 }

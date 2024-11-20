@@ -37,6 +37,7 @@ in
     gamemode
     mangohud
     protonup
+    spicetify
 
     qimgv
     mpv
@@ -55,6 +56,8 @@ in
     tmux
     tree
 
+    fuzzel
+
   ];
 
   services.flatpak.update.onActivation = true;
@@ -72,7 +75,7 @@ in
     "com.usebottles.bottles"
     "com.bitwarden.desktop"
     "com.obsproject.Studio"
-    "com.spotify.Client"
+    # "com.spotify.Client"
     "io.gpt4all.gpt4all"
     "org.signal.Signal"
   ];

@@ -6,6 +6,7 @@
     ./btop.nix
     ./kitty.nix
     ./textfox.nix
+    ./spicetify.nix
   ];
 
 }
