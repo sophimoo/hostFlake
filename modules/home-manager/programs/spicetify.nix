@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, inputs, pkgs, config, ... }:
 
 {
 
@@ -9,11 +9,7 @@
   };
 
   config = lib.mkIf config.spicetify.enable {
-
     programs = {
-      spotify = {
-        enable = true;
-      };
       spicetify =
         let
             spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};

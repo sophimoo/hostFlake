@@ -24,6 +24,7 @@ in
   textfox.enable = true;
   btop.enable = true;
   kitty.enable = true;
+  spicetify.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
@@ -37,7 +38,6 @@ in
     gamemode
     mangohud
     protonup
-    spicetify
 
     qimgv
     mpv
