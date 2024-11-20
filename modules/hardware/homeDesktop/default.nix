@@ -2,8 +2,7 @@
 {
 
   imports = [
-    ./home-manager
-    ./hardware
+    ./nvidia.nix
   ];
 
 }
