@@ -18,16 +18,22 @@ in
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      devices = [ "nodev" ];
-      efiSupport = true;
-      useOSProber = true;
-      configurationLimit = 5;
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        devices = [ "nodev" ];
+        efiSupport = true;
+        useOSProber = true;
+        configurationLimit = 5;
+      };
+      timeout = 5;
     };
-    timeout = 5;
+    plymouth = {
+      enable = true;
+      theme = "breeze";
+    };
   };
 
   networking.hostName = "2015airNix"; # Define your hostname.
