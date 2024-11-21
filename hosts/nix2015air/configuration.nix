@@ -210,6 +210,7 @@ in
       greetd.tuigreet
 
       lexend
+      nerdfonts
     ];
 
   };
