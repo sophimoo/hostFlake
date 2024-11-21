@@ -16,7 +16,7 @@ in
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
 
-  imports = [ ../../modules ];
+  imports = [ ../../home-manager ];
 
   discordOverlay.enable = false;
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict

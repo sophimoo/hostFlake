@@ -92,6 +92,7 @@
                 imports = [
                   ./hosts/nixHomeDesktop/home.nix
                   nix-flatpak.homeManagerModules.nix-flatpak
+                  spicetify-nix.homeManagerModules.default
                 ];
               };
             }

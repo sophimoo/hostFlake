@@ -2,8 +2,6 @@
 
 {
 
-  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
-
   options = {
     spicetify.enable = lib.mkEnableOption "enables spicetify & spotify";
   };
@@ -26,3 +24,4 @@
     };
   };
 }
+
