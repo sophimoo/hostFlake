@@ -208,6 +208,8 @@ in
     systemPackages = with pkgs; [
       appimage-run
       greetd.tuigreet
+
+      lexend
     ];
 
   };
