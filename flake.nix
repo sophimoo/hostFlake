@@ -70,6 +70,7 @@
                 imports = [
                   ./hosts/nix2015air/home.nix
                   nix-flatpak.homeManagerModules.nix-flatpak
+                  spicetify-nix.homeManagerModules.default
                 ];
               };
             }
@@ -115,6 +116,7 @@
                 imports = [
                   ./hosts/nixArmVM/home.nix
                   nix-flatpak.homeManagerModules.nix-flatpak
+                  spicetify-nix.homeManagerModules.default
                 ];
               };
             }
