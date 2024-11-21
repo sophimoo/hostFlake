@@ -19,7 +19,10 @@ in
   imports = [ ../../home-manager ];
 
   discordOverlay.enable = false;
-  firefox.enable = true;
+  textfox.enable = true;
+  kitty.enable = true;
+  lf.enable = true;
+  btop.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
