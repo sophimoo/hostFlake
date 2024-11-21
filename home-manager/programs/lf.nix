@@ -14,6 +14,7 @@
   config = lib.mkIf config.lf.enable {
 
     xdg.configFile."lf/icons".source = ./icons;
+    # nix run nixpkgs#wget -- "https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example" -O icons
 
     programs = {
 
@@ -37,6 +38,7 @@
           hidden = true;
           preview = true;
           icons = true;
+	  mouse = true;
         };
 
         extraConfig = ''
