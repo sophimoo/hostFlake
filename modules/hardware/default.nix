@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 {
 
-  imports = [
-    ./homeDesktop
-  ];
+  imports = [ ./homeDesktop ];
 
 }
