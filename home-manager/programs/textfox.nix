@@ -31,6 +31,7 @@ in
         profiles."${name}" = {
 
           name = "TUI Sophie <3";
+          isDefault = true;
           id = 0;
 
           search = {
