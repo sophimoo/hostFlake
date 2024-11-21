@@ -184,6 +184,7 @@ in
     lexend
     miracode
     monocraft
+    nerdfonts
 
     nixfmt-rfc-style
 

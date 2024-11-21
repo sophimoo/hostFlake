@@ -24,6 +24,8 @@ in
   textfox.enable = true;
   btop.enable = true;
   kitty.enable = true;
+  lf.enable = true;
+  spicetify.enable = false;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
@@ -32,7 +34,6 @@ in
 
     qimgv
     mpv
-    kitty
 
     neovim
     ffmpeg
@@ -40,7 +41,6 @@ in
     git
     gh
     ranger
-    lf
     rsync
     fastfetch
     atuin

@@ -9,7 +9,12 @@
 {
 
   options = {
-    spicetify.enable = lib.mkEnableOption "enables spicetify & spotify";
+    spicetify = {
+      enable = lib.mkEnableOption {
+        description = "enables spicetify & spotify";
+        default = false;
+      };
+    };
   };
 
   config = lib.mkIf config.spicetify.enable {
