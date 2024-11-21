@@ -50,7 +50,6 @@ in
     git
     gh
     ranger
-    lf
     rsync
     btop
     fastfetch

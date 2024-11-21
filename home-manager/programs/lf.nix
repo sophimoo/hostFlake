@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -7,23 +12,33 @@
   };
 
   config = lib.mkIf config.lf.enable {
+
+    xdg.configFile."lf/icons".source = ./icons;
+
     programs = {
+
       lf = {
         enable = true;
+
         settings = {
           drawbox = true;
           hidden = true;
           preview = true;
+          icons = true;
         };
-        extraConfig = {
+
+        extraConfig = ''
           set previewer ctpv
           set cleaner ctpvclear
           &ctpv -s $id
           &ctpvquit $id
-        };
+        '';
       };
-      ctpv.enable = true;
-    };
-  };
-}
 
+    };
+
+    home.packages = with pkgs; [ ctpv ];
+
+  };
+
+}

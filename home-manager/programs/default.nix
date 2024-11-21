@@ -7,6 +7,7 @@
     ./kitty.nix
     ./textfox.nix
     ./spicetify.nix
+    ./lf.nix
   ];
 
 }
