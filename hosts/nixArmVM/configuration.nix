@@ -66,6 +66,8 @@ in
 
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
+  # Enable hyprland
+  programs.hyprland.enable = true;
 
   systemd.tmpfiles.rules = [ "d '/var/cache/tuigreet' - greeter greeter - -" ];
 
@@ -180,6 +182,9 @@ in
 
     # system
     greetd.tuigreet
+
+    # app launcher for hyprland
+    anyrun
 
     lexend
     miracode
