@@ -137,7 +137,7 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
-      "libvirtd"
+      #       "libvirtd"
     ];
     packages = with pkgs; [
       kdePackages.kate
@@ -220,60 +220,61 @@ in
       miracode
       lexend
       monocraft
+      nerdfonts
 
       nixfmt-rfc-style
 
-      virtio-win
-      virt-manager
-      virt-viewer
-      spice
-      spice-gtk
-      spice-protocol
-      win-virtio
-      win-spice
+      #       virtio-win
+      #       virt-manager
+      #       virt-viewer
+      #       spice
+      #       spice-gtk
+      #       spice-protocol
+      #       win-virtio
+      #       win-spice
     ];
 
   };
 
-  services.spice-vdagentd.enable = true;
-
-  virtualisation = {
-
-    virtualbox = {
-      host = {
-        enable = true;
-        enableKvm = true;
-        enableExtensionPack = true;
-        addNetworkInterface = false;
-      };
-      guest = {
-        enable = true;
-        clipboard = true;
-        draganddrop = true;
-      };
-    };
-
-    libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMF.override {
-              secureBoot = true;
-              tpmSupport = true;
-            }).fd
-          ];
-        };
-      };
-    };
-    spiceUSBRedirection.enable = true;
-  };
-
-  users.extraGroups.vboxusers.members = [ "${name}" ];
+  #   services.spice-vdagentd.enable = true;
+  #
+  #   virtualisation = {
+  #
+  #     virtualbox = {
+  #       host = {
+  #         enable = true;
+  #         enableKvm = true;
+  #         enableExtensionPack = true;
+  #         addNetworkInterface = false;
+  #       };
+  #       guest = {
+  #         enable = true;
+  #         clipboard = true;
+  #         draganddrop = true;
+  #       };
+  #     };
+  #
+  #     libvirtd = {
+  #       enable = true;
+  #       qemu = {
+  #         package = pkgs.qemu_kvm;
+  #         runAsRoot = true;
+  #         swtpm.enable = true;
+  #         ovmf = {
+  #           enable = true;
+  #           packages = [
+  #             (pkgs.OVMF.override {
+  #               secureBoot = true;
+  #               tpmSupport = true;
+  #             }).fd
+  #           ];
+  #         };
+  #       };
+  #     };
+  #     spiceUSBRedirection.enable = true;
+  #   };
+  #
+  #   users.extraGroups.vboxusers.members = [ "${name}" ];
 
   # Enable OpenGL
   hardware.opengl = {
