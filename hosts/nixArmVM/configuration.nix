@@ -12,6 +12,7 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules
   ];
 
   # Bootloader.
@@ -186,11 +187,6 @@ in
     # app launcher for hyprland
     anyrun
 
-    lexend
-    miracode
-    monocraft
-    nerdfonts
-
     nixfmt-rfc-style
 
     # VM specific
@@ -199,6 +195,8 @@ in
   ];
 
   virtualisation.vmware.guest.enable = true;
+  
+  fonts.enable = true;
 
   hardware.graphics = {
     enable = true;
