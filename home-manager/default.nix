@@ -4,6 +4,7 @@
   imports = [
     ./overlays
     ./programs
+    ./desktops
   ];
 
 }
