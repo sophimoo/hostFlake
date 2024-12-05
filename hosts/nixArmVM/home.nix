@@ -25,7 +25,6 @@ in
   btop.enable = true;
   kitty.enable = true;
   lf.enable = true;
-  spicetify.enable = false;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";

@@ -21,6 +21,10 @@
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    plasma-manager.url = "github:nix-community/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "home-manager";
+
   };
 
   outputs =
@@ -32,6 +36,7 @@
       home-manager,
       nix-flatpak,
       spicetify-nix,
+      plasma-manager,
       ...
     }@inputs:
 
@@ -49,6 +54,20 @@
       };
       lib-unstable = nixpkgs-unstable.lib;
 
+      home-manager-modules = [
+        nix-flatpak.homeManagerModules.nix-flatpak
+        spicetify-nix.homeManagerModules.default
+        plasma-manager.homeManagerModules.plasma-manager
+      ];
+
+      home-manager-config = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
+
     in
     {
 
@@ -61,18 +80,12 @@
             # using home manager as a module
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-              };
-              home-manager.users.sophie = {
-                imports = [
+              home-manager = home-manager-config // {
+                users.sophie.imports = [
                   ./hosts/nix2015air/home.nix
-                  nix-flatpak.homeManagerModules.nix-flatpak
-                  spicetify-nix.homeManagerModules.default
-                ];
+                ] ++ home-manager-modules;
               };
+
             }
           ];
         };
@@ -84,18 +97,12 @@
             # using home manager as a module
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-              };
-              home-manager.users.sophie = {
-                imports = [
+              home-manager = home-manager-config // {
+                users.sophie.imports = [
                   ./hosts/nixHomeDesktop/home.nix
-                  nix-flatpak.homeManagerModules.nix-flatpak
-                  spicetify-nix.homeManagerModules.default
-                ];
+                ] ++ home-manager-modules;
               };
+
             }
           ];
         };
@@ -107,18 +114,12 @@
             # using home manager as a module
             hm-unstable.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-              };
-              home-manager.users.sophie = {
-                imports = [
+              home-manager = home-manager-config // {
+                users.sophie.imports = [
                   ./hosts/nixArmVM/home.nix
-                  nix-flatpak.homeManagerModules.nix-flatpak
-                  spicetify-nix.homeManagerModules.default
-                ];
+                ] ++ home-manager-modules;
               };
+
             }
           ];
         };
