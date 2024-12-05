@@ -26,6 +26,8 @@ in
   kitty.enable = true;
   lf.enable = true;
 
+  plasma-config.enable = true;
+
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
 
