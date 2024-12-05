@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
 
   options = {
@@ -7,10 +12,10 @@
 
   config = lib.mkIf config.fonts.enable {
     fonts.packages = with pkgs; [
-        nerdfonts
-        lexend
-        miracode
-        monocraft
+      nerdfonts
+      lexend
+      miracode
+      monocraft
     ];
   };
 

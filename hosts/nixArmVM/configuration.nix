@@ -59,13 +59,6 @@ in
     LC_TIME = "de_AT.UTF-8";
   };
 
-  services.xserver = {
-    enable = true;
-    autorun = false;
-    displayManager.startx.enable = false;
-    videoDrivers = [ "vmware" ];
-  };
-
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
   # Enable hyprland
@@ -196,7 +189,7 @@ in
   ];
 
   virtualisation.vmware.guest.enable = true;
-  
+
   fonts.enable = true;
 
   hardware.graphics = {
