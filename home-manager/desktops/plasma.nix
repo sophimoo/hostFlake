@@ -13,8 +13,6 @@
 
   config = lib.mkIf config.plasma-config.enable {
 
-    imports = [ <plasma-manager/modules> ];
-
     programs.plasma = {
       enable = true;
 
