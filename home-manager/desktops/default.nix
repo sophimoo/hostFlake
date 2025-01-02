@@ -2,9 +2,7 @@
 {
 
   imports = [
-    ./overlays
-    ./programs
-    ./desktops
+    ./plasma.nix
   ];
 
 }

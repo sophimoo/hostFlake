@@ -41,7 +41,7 @@
     }@inputs:
 
     let
-      system = "x86_64-linux";
+      system = builtins.trace system;
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -104,7 +104,7 @@
         };
 
         nixArmVM = lib-unstable.nixosSystem {
-          system = "aarch64-linux";
+          inherit system;
           modules = [
             ./hosts/nixArmVM/configuration.nix
             # using home manager as a module
