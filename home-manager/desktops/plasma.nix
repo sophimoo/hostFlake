@@ -13,6 +13,11 @@
 
   config = lib.mkIf config.plasma-config.enable {
 
+    home.packages = with pkgs; [
+      kora-icon-theme
+      colloid-icon-theme
+    ];
+
     programs.plasma = {
       enable = true;
 
@@ -21,13 +26,13 @@
       #
       workspace = {
         clickItemTo = "select";
-        lookAndFeel = "org.kde.breezedark.desktop";
+        lookAndFeel = "org.kde.breeze.desktop";
         cursor = {
           theme = "Bibata-Modern-Ice";
-          size = 32;
+          size = 24;
         };
-        iconTheme = "Papirus-Dark";
-        wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
+        # iconTheme = "Colloid-Light";
+	iconTheme = "kora-light-panel";
       };
 
       hotkeys.commands."launch-konsole" = {
@@ -68,32 +73,30 @@
         {
           location = "bottom";
           widgets = [
-            {
-              kickoff = {
-                sortAlphabetically = true;
-                icon = "nix-snowflake";
-              };
-            }
-            "org.kde.plasma.marginsseparator"
-            {
+	    "org.kde.plasma.trash"
+	    {
               iconTasks = {
                 launchers = [
                   "applications:org.kde.dolphin.desktop"
-                  "firefox.desktop"
-                  "kitty.desktop"
+                  "applications:firefox.desktop"
+                  "applications:kitty.desktop"
                 ];
               };
             }
           ];
-          hiding = "autohide";
+          hiding = "dodgewindows";
           floating = true;
           lengthMode = "fit";
         }
-        # Application name, Global menu and Song information and playback controls at the top
         {
           location = "top";
           height = 32;
           widgets = [
+            {
+              kicker = {
+                icon = "nix-snowflake";
+              };
+            }
             {
               applicationTitleBar = {
                 behavior = {
@@ -125,21 +128,19 @@
             }
             "org.kde.plasma.appmenu"
             "org.kde.plasma.panelspacer"
+	    {
+	      systemTray = {};
+	    }
             {
-              systemTray.items = { };
-            }
-            {
-              name = "org.kde.plasma.digitalclock";
-              config = {
-                General = {
-                  autoFontAndSize = false;
-                  customDateFormat = "ddd d MMM";
-                  dateFormat = "custom";
-                  fontFamily = "Noto Sans";
-                  fontStyleName = "Regular";
-                  fontWeight = "400";
-                  use24hFormat = "2";
-                  dateDisplayFormat = "BesideTime";
+              digitalClock = {
+                time.format = "24h";
+                font = {
+                  family = "Lexend Deca Medium";
+                  size = 10;
+                };
+                date = {
+                  format.custom = "ddd d MMM";
+                  position = "besideTime";
                 };
               };
             }

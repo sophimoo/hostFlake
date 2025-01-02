@@ -33,6 +33,8 @@ in
 
   home.packages = with pkgs; [
 
+    goofcord
+
     qimgv
     mpv
 
