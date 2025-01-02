@@ -36,7 +36,7 @@
       };
 
       hotkeys.commands."launch-konsole" = {
-        name = "Launch Konsole";
+        name = "Launch Kitty";
         key = "Meta+Alt+K";
         command = "kitty";
       };
@@ -90,6 +90,7 @@
         }
         {
           location = "top";
+	  hiding = "dodgewindows";
           height = 32;
           widgets = [
             {
@@ -155,7 +156,7 @@
             action = "nothing";
           };
           turnOffDisplay = {
-            idleTimeout = 1000;
+            idleTimeout = 1500;
             idleTimeoutWhenLocked = "immediately";
           };
         };
