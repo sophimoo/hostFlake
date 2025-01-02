@@ -35,7 +35,6 @@
 
         settings = {
           drawbox = true;
-          hidden = true;
           preview = true;
           icons = true;
           mouse = true;

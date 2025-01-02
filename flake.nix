@@ -81,9 +81,7 @@
             home-manager.nixosModules.home-manager
             {
               home-manager = home-manager-config // {
-                users.sophie.imports = [
-                  ./hosts/nix2015air/home.nix
-                ] ++ home-manager-modules;
+                users.sophie.imports = [ ./hosts/nix2015air/home.nix ] ++ home-manager-modules;
               };
 
             }
@@ -98,9 +96,7 @@
             home-manager.nixosModules.home-manager
             {
               home-manager = home-manager-config // {
-                users.sophie.imports = [
-                  ./hosts/nixHomeDesktop/home.nix
-                ] ++ home-manager-modules;
+                users.sophie.imports = [ ./hosts/nixHomeDesktop/home.nix ] ++ home-manager-modules;
               };
 
             }
@@ -115,9 +111,7 @@
             hm-unstable.nixosModules.home-manager
             {
               home-manager = home-manager-config // {
-                users.sophie.imports = [
-                  ./hosts/nixArmVM/home.nix
-                ] ++ home-manager-modules;
+                users.sophie.imports = [ ./hosts/nixArmVM/home.nix ] ++ home-manager-modules;
               };
 
             }

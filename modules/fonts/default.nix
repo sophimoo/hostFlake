@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 {
 
-  imports = [
-    ./default-fonts.nix
-  ];
+  imports = [ ./default-fonts.nix ];
 
 }

@@ -17,7 +17,7 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/hardware
+    ../../modules
   ];
 
   # Bootloader
@@ -81,9 +81,6 @@ in
       layout = "us";
       variant = "";
     };
-
-    videoDrivers = [ "nvidia" ];
-
   };
 
   # Enable the KDE Plasma Desktop Environment.
@@ -101,7 +98,20 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [ "d '/var/cache/tuigreet' - greeter greeter - -" ];
+  systemd.tmpfiles.rules = 
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in [
+      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+      "d '/var/cache/tuigreet' - greeter greeter - -" 
+    ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -158,6 +168,7 @@ in
   # Required for flatpak
   xdg.portal = {
     enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
@@ -203,7 +214,6 @@ in
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
 
     sessionVariables = {
@@ -217,12 +227,11 @@ in
       appimage-run
       greetd.tuigreet
 
-      miracode
-      lexend
-      monocraft
-      nerdfonts
-
       nixfmt-rfc-style
+
+      exfatprogs
+
+      protontricks
 
       #       virtio-win
       #       virt-manager
@@ -235,6 +244,8 @@ in
     ];
 
   };
+
+  fonts.enable = true;
 
   #   services.spice-vdagentd.enable = true;
   #
@@ -279,12 +290,10 @@ in
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
+    driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [ ];
+    extraPackages = with pkgs; [ rocmPackages.clr.icd ];
   };
-
-  # Load nvidia driver for Xorg and Wayland
-  nvidiaHome.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
