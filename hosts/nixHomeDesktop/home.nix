@@ -46,6 +46,8 @@ in
     qimgv
     mpv
 
+    gimp-with-plugins
+
     neovim
     ffmpeg
     wget

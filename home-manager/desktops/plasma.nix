@@ -90,7 +90,6 @@
         }
         {
           location = "top";
-	  hiding = "dodgewindows";
           height = 32;
           widgets = [
             {

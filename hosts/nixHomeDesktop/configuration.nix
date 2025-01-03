@@ -98,20 +98,7 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = 
-    let
-      rocmEnv = pkgs.symlinkJoin {
-        name = "rocm-combined";
-        paths = with pkgs.rocmPackages; [
-          rocblas
-          hipblas
-          clr
-        ];
-      };
-    in [
-      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-      "d '/var/cache/tuigreet' - greeter greeter - -" 
-    ];
+  systemd.tmpfiles.rules = [ "d '/var/cache/tuigreet' - greeter greeter - -" ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
