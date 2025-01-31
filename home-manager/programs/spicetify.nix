@@ -18,6 +18,7 @@
   };
 
   config = lib.mkIf config.spicetify.enable {
+
     programs = {
       spicetify =
         let
@@ -25,6 +26,11 @@
         in
         {
           enable = true;
+          spicetifyPackage = pkgs.spicetify-cli;
+          enabledCustomApps = with spicePkgs.apps; [
+            historyInSidebar
+            marketplace
+          ];
           enabledExtensions = with spicePkgs.extensions; [
             adblock
             hidePodcasts

@@ -21,11 +21,10 @@ in
   discordOverlay.enable = false;
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
 
+  spicetify.enable = true;
   firefox.enable = true;
   textfox.enable = true;
-  btop.enable = true;
   kitty.enable = true;
-  spicetify.enable = true;
   lf.enable = true;
 
   plasma-config.enable = true;
@@ -37,16 +36,26 @@ in
 
     # discord
 
+    goofcord
+    arrpc
+
     jetbrains.pycharm-community
 
     gamemode
     mangohud
     protonup
+    lutris
+    wine
+    rpcs3
+
+    texliveFull
 
     qimgv
     mpv
 
     gimp-with-plugins
+
+    libreoffice-qt6-fresh
 
     neovim
     ffmpeg
@@ -55,35 +64,29 @@ in
     gh
     ranger
     rsync
-    btop
     fastfetch
     atuin
     tmux
     tree
+    p7zip
+    rar
+
+    chromium
 
     filelight
     gparted
 
-  ];
+    wireguard-tools
 
-  services.flatpak.update.onActivation = true;
-  services.flatpak.uninstallUnmanaged = false;
+    btop-rocm
 
-  services.flatpak.packages = [
-    # { appID = ""; origin = ""; }
-    "org.prismlauncher.PrismLauncher"
-    "io.github.milkshiift.GoofCord"
-    "org.qbittorrent.qBittorrent"
-    "org.libreoffice.LibreOffice"
-    "net.cozic.joplin_desktop"
-    "org.mozilla.Thunderbird"
-    "com.discordapp.Discord"
-    "com.usebottles.bottles"
-    "com.bitwarden.desktop"
-    "com.obsproject.Studio"
-    # "com.spotify.Client"
-    "io.gpt4all.gpt4all"
-    "org.signal.Signal"
+    python312
+    python312Packages.pip
+    python311Packages.setuptools
+    virtualenv
+
+    vdhcoapp
+
   ];
 
   # This value determines the Home Manager release that your

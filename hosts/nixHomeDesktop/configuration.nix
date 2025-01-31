@@ -34,7 +34,7 @@ in
       };
       timeout = 5;
     };
-
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "amd_iommu=on" ];
 
     plymouth = {
@@ -44,7 +44,7 @@ in
 
   };
 
-  networking.hostName = "nixHomeDesktop"; # Define your hostname.
+  # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -52,7 +52,23 @@ in
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "nixHomeDesktop";
+    networkmanager.enable = true;
+    firewall = {
+      # if packets are still dropped, they will show up in dmesg
+      logReversePathDrops = true;
+      # wireguard trips rpfilter up
+      extraCommands = ''
+        ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+        ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+      '';
+      extraStopCommands = ''
+        ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+        ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+      '';
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -98,8 +114,21 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [ "d '/var/cache/tuigreet' - greeter greeter - -" ];
-
+  systemd.tmpfiles.rules =
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in
+    [
+      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+      "d '/var/cache/tuigreet' - greeter greeter - -"
+    ];
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -122,10 +151,14 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  security.sudo.extraConfig = ''
-    Defaults env_reset,pwfeedback
-    Defaults env_keep += "EDITOR VISUAL"
-  '';
+  security.sudo = {
+    wheelNeedsPassword = false;
+    extraConfig = ''
+      Defaults env_reset,pwfeedback
+      Defaults env_keep += "EDITOR VISUAL"
+      Defaults timestamp_timeout=60
+    '';
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${name} = {
@@ -134,7 +167,10 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
-      #       "libvirtd"
+      "libvirtd"
+      "docker"
+      "render"
+      "video"
     ];
     packages = with pkgs; [
       kdePackages.kate
@@ -182,11 +218,30 @@ in
 
     fish = {
       enable = true;
-      shellInit = "
-        atuin init fish | source\n
-        set fish_greeting # Disable greeting\n
-        fastfetch\n
-      ";
+      shellInit = ''
+        atuin init fish | source
+        set fish_greeting # Disable greeting
+        fastfetch
+        alias beammp "protontricks-launch -vv --appid 284160 '/run/media/sophie/2TB SSD/SteamLibrary/steamapps/compatdata/284160/pfx/drive_c/users/steamuser/AppData/Roaming/BeamMP-Launcher/BeamMP-Launcher.exe'"
+
+        function comfy
+          cd "/run/media/sophie/2TB SSD/ComfyUI/" || return 1
+          nix-shell
+        end
+
+        function mmb
+            if test -z "$argv[1]"
+                echo "Usage: mmb <environment>"
+                return 1
+            end
+
+            set environment $argv[1]
+            micromamba activate $environment
+            cd ~/Documents/nixShells/mamba/ || return 1
+            nix-shell
+        end
+
+      '';
     };
 
     appimage = {
@@ -209,10 +264,15 @@ in
 
     systemPackages = with pkgs; [
 
+      gpu-screen-recorder
+      gpu-screen-recorder-gtk
+
       pkgsi686Linux.gperftools
       gperftools
       appimage-run
       greetd.tuigreet
+
+      clinfo
 
       nixfmt-rfc-style
 
@@ -220,27 +280,53 @@ in
 
       protontricks
 
-      #       virtio-win
-      #       virt-manager
-      #       virt-viewer
-      #       spice
-      #       spice-gtk
-      #       spice-protocol
-      #       win-virtio
-      #       win-spice
+      # looking-glass-client
+
+      # virtio-win
+      # virt-manager
+      # virt-viewer
+      # spice
+      # spice-gtk
+      # spice-protocol
+      # win-virtio
+      # win-spice
+
+      rocmPackages.rocm-smi
+      mesa
+      rocmPackages.rocblas
+      rocmPackages.rocm-smi
+      rocmPackages.rocminfo
+      rocmPackages.hipblas
+      rocmPackages.rocm-device-libs
+      rocmPackages.rpp
+      pcre2
+      libselinux
+      libcap
+
     ];
 
   };
 
-  fonts.enable = true;
+  fonts = {
+    enable = true;
+    enableDefaultPackages = true;
+    fontDir.enable = true;
+  };
 
-  #   services.spice-vdagentd.enable = true;
-  #
+  # services.spice-vdagentd.enable = true;
+  virtualisation = {
+    docker.enable = true;
+    waydroid.enable = true;
+  };
   #   virtualisation = {
+  #
+  #     docker = {
+  #       enable = true;
+  #     };
   #
   #     virtualbox = {
   #       host = {
-  #         enable = true;
+  #         enable = false;
   #         enableKvm = true;
   #         enableExtensionPack = true;
   #         addNetworkInterface = false;
@@ -248,12 +334,12 @@ in
   #       guest = {
   #         enable = true;
   #         clipboard = true;
-  #         draganddrop = true;
+  #         dragAndDrop = true;
   #       };
   #     };
   #
   #     libvirtd = {
-  #       enable = true;
+  #       enable = false;
   #       qemu = {
   #         package = pkgs.qemu_kvm;
   #         runAsRoot = true;
@@ -271,14 +357,26 @@ in
   #     };
   #     spiceUSBRedirection.enable = true;
   #   };
-  #
-  #   users.extraGroups.vboxusers.members = [ "${name}" ];
+
+  # users.extraGroups.vboxusers.members = [ "${name}" ];
 
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+      mesa
+      rocmPackages.rocblas
+      rocmPackages.rocm-smi
+      rocmPackages.rocminfo
+      rocmPackages.hipblas
+      rocmPackages.rocm-device-libs
+      rocmPackages.rpp
+      pcre2
+      libselinux
+      libcap
+    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are

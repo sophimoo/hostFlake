@@ -32,13 +32,23 @@
           size = 24;
         };
         # iconTheme = "Colloid-Light";
-	iconTheme = "kora-light-panel";
+        iconTheme = "kora-light-panel";
+        wallpaper = "/home/sophie/Documents/wallpapers/mc_wallpaper_reversed.jpg}";
+      };
+
+      kscreenlocker = {
+        passwordRequired = false;
       };
 
       hotkeys.commands."launch-konsole" = {
         name = "Launch Kitty";
         key = "Meta+Alt+K";
         command = "kitty";
+      };
+
+      krunner = {
+        position = "center";
+        historyBehavior = "enableSuggestions";
       };
 
       fonts = {
@@ -73,8 +83,8 @@
         {
           location = "bottom";
           widgets = [
-	    "org.kde.plasma.trash"
-	    {
+            "org.kde.plasma.trash"
+            {
               iconTasks = {
                 launchers = [
                   "applications:org.kde.dolphin.desktop"
@@ -128,9 +138,9 @@
             }
             "org.kde.plasma.appmenu"
             "org.kde.plasma.panelspacer"
-	    {
-	      systemTray = {};
-	    }
+            {
+              systemTray = { };
+            }
             {
               digitalClock = {
                 time.format = "24h";
@@ -152,7 +162,7 @@
         AC = {
           powerButtonAction = "lockScreen";
           autoSuspend = {
-            action = "nothing";
+            action = "sleep";
           };
           turnOffDisplay = {
             idleTimeout = 1500;
