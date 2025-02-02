@@ -160,10 +160,13 @@ in
 
   };
 
-  security.sudo.extraConfig = ''
-    Defaults env_reset,pwfeedback
-    Defaults env_keep += "EDITOR VISUAL"
-  '';
+  security.sudo = {
+    wheelNeedsPassword = false;
+    extraConfig = ''
+      Defaults env_reset,pwfeedback
+      Defaults env_keep += "EDITOR VISUAL"
+    '';
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
