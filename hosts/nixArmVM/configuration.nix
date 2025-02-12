@@ -192,7 +192,7 @@ in
   ];
 
   virtualisation.vmware.guest.enable = true;
-
+  services.xserver.videoDrivers = [ "vmware" ]; 
   fonts.enable = true;
 
   hardware.graphics = {

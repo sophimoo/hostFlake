@@ -58,6 +58,7 @@ in
     # { appID = ""; origin = ""; }
     "org.qbittorrent.qBittorrent"
     "com.bitwarden.desktop"
+    "md.obsidian.Obsidian"
   ];
 
   # This value determines the Home Manager release that your
