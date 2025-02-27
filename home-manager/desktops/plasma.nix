@@ -14,25 +14,20 @@
   config = lib.mkIf config.plasma-config.enable {
 
     home.packages = with pkgs; [
-      kora-icon-theme
-      colloid-icon-theme
+      papirus-icon-theme
     ];
 
     programs.plasma = {
       enable = true;
-
+      overrideConfig = false;
       #
       # Some high-level settings:
       #
       workspace = {
         clickItemTo = "select";
         lookAndFeel = "org.kde.breeze.desktop";
-        cursor = {
-          theme = "Bibata-Modern-Ice";
-          size = 24;
-        };
         # iconTheme = "Colloid-Light";
-        iconTheme = "kora-light-panel";
+        iconTheme = "Papirus";
         wallpaper = "/home/sophie/Documents/wallpapers/mc_wallpaper_reversed.jpg}";
       };
 
@@ -139,9 +134,6 @@
             "org.kde.plasma.appmenu"
             "org.kde.plasma.panelspacer"
             {
-              systemTray = { };
-            }
-            {
               digitalClock = {
                 time.format = "24h";
                 font = {
@@ -153,6 +145,10 @@
                   position = "besideTime";
                 };
               };
+            }
+            "org.kde.plasma.panelspacer"
+            {
+              systemTray = { };
             }
           ];
         }

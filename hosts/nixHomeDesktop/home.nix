@@ -28,6 +28,8 @@ in
   lf.enable = true;
 
   plasma-config.enable = true;
+  gtk-config.enable = true;
+  qt-config.enable = false;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
@@ -82,7 +84,6 @@ in
 
     python312
     python312Packages.pip
-    python311Packages.setuptools
     virtualenv
 
     vdhcoapp

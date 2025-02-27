@@ -224,6 +224,7 @@ in
         fastfetch
         alias beammp "protontricks-launch -vv --appid 284160 '/run/media/sophie/2TB SSD/SteamLibrary/steamapps/compatdata/284160/pfx/drive_c/users/steamuser/AppData/Roaming/BeamMP-Launcher/BeamMP-Launcher.exe'"
 
+	alias lgot "qdbus org.kde.ksmserver /KSMServer logout 0 0 1"
         function comfy
           cd "/run/media/sophie/2TB SSD/ComfyUI/" || return 1
           nix-shell
