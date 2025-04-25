@@ -5,6 +5,15 @@
   ...
 }:
 
+let
+
+  sophie-wallpaper = pkgs.fetchzip {
+    url = "https://github.com/sophimoo/wallpapers/archive/refs/heads/main.zip";
+    sha256 = "1j9dpw2jg5hss7gzky65fakz3phnhhs7x7hc05w26pd4wb128w7c";
+  };
+
+in
+
 {
 
   options = {
@@ -19,23 +28,28 @@
 
     programs.plasma = {
       enable = true;
-      overrideConfig = false;
       #
       # Some high-level settings:
       #
       workspace = {
         clickItemTo = "select";
-        lookAndFeel = "org.kde.breeze.desktop";
         # iconTheme = "Colloid-Light";
         iconTheme = "Papirus";
-        wallpaper = "/home/sophie/Documents/wallpapers/mc_wallpaper_reversed.jpg}";
+        # wallpaper = "/home/sophie/Documents/wallpapers/mc_wallpaper_reversed_night.jpg";
+        wallpaper = "${sophie-wallpaper}/mc_wallpaper_reversed_night.jpg";
       };
 
       kscreenlocker = {
         passwordRequired = false;
       };
 
-      hotkeys.commands."launch-konsole" = {
+      session = {
+        sessionRestore = {
+          restoreOpenApplicationsOnLogin = "startWithEmptySession";
+        };
+      };
+
+      hotkeys.commands."launch-kitty" = {
         name = "Launch Kitty";
         key = "Meta+Alt+K";
         command = "kitty";
@@ -156,21 +170,18 @@
 
       powerdevil = {
         AC = {
-          powerButtonAction = "lockScreen";
+          powerButtonAction = "hibernate";
           autoSuspend = {
-            action = "sleep";
-          };
-          turnOffDisplay = {
+            action = "hibernate";
             idleTimeout = 1500;
-            idleTimeoutWhenLocked = "immediately";
+          };
+          whenSleepingEnter = "standbyThenHibernate";
+          dimDisplay = {
+            enable = false;
           };
         };
-        battery = {
-          powerButtonAction = "sleep";
-          whenSleepingEnter = "standbyThenHibernate";
-        };
-        lowBattery = {
-          whenLaptopLidClosed = "hibernate";
+        general = {
+          pausePlayersOnSuspend = false;
         };
       };
 

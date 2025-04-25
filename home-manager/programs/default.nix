@@ -8,6 +8,7 @@
     ./textfox.nix
     ./spicetify.nix
     ./lf.nix
+    ./rstudio-stat.nix
   ];
 
 }

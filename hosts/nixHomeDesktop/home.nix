@@ -27,9 +27,10 @@ in
   kitty.enable = true;
   lf.enable = true;
 
+  rStudio-stat.enable = true;
+
   plasma-config.enable = true;
   gtk-config.enable = true;
-  qt-config.enable = false;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
@@ -42,6 +43,7 @@ in
     arrpc
 
     jetbrains.pycharm-community
+    jetbrains.idea-community
 
     gamemode
     mangohud

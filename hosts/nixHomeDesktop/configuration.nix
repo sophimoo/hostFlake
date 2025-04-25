@@ -56,6 +56,7 @@ in
     hostName = "nixHomeDesktop";
     networkmanager.enable = true;
     firewall = {
+      enable = true;
       # if packets are still dropped, they will show up in dmesg
       logReversePathDrops = true;
       # wireguard trips rpfilter up
@@ -224,23 +225,14 @@ in
         fastfetch
         alias beammp "protontricks-launch -vv --appid 284160 '/run/media/sophie/2TB SSD/SteamLibrary/steamapps/compatdata/284160/pfx/drive_c/users/steamuser/AppData/Roaming/BeamMP-Launcher/BeamMP-Launcher.exe'"
 
-	alias lgot "qdbus org.kde.ksmserver /KSMServer logout 0 0 1"
-        function comfy
-          cd "/run/media/sophie/2TB SSD/ComfyUI/" || return 1
-          nix-shell
+        echo -n -s "$nix_shell_info ~>"
+      '';
+      promptInit = ''
+      set -l nix_shell_info (
+        if test -n "$IN_NIX_SHELL"
+          echo -n "<nix-shell> "
         end
-
-        function mmb
-            if test -z "$argv[1]"
-                echo "Usage: mmb <environment>"
-                return 1
-            end
-
-            set environment $argv[1]
-            micromamba activate $environment
-            cd ~/Documents/nixShells/mamba/ || return 1
-            nix-shell
-        end
+      )
 
       '';
     };
@@ -315,10 +307,10 @@ in
   };
 
   # services.spice-vdagentd.enable = true;
-  virtualisation = {
-    docker.enable = true;
-    waydroid.enable = true;
-  };
+  # virtualisation = {
+  #   docker.enable = true;
+  #   waydroid.enable = true;
+  # };
   #   virtualisation = {
   #
   #     docker = {
