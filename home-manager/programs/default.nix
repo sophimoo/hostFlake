@@ -9,6 +9,7 @@
     ./spicetify.nix
     ./lf.nix
     ./rstudio-stat.nix
+    ./vscode.nix[]
   ];
 
 }

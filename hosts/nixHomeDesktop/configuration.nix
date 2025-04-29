@@ -265,6 +265,8 @@ in
       appimage-run
       greetd.tuigreet
 
+      zulu17
+
       clinfo
 
       nixfmt-rfc-style
