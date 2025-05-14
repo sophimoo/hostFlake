@@ -26,6 +26,7 @@ in
   textfox.enable = true;
   kitty.enable = true;
   lf.enable = true;
+  vscode.enable = true;
 
   rStudio-stat.enable = true;
 
@@ -89,6 +90,8 @@ in
     virtualenv
 
     vdhcoapp
+
+    piper
 
   ];
 

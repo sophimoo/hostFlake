@@ -275,6 +275,8 @@ in
 
       protontricks
 
+      solaar
+
       # looking-glass-client
 
       # virtio-win
@@ -307,6 +309,8 @@ in
     enableDefaultPackages = true;
     fontDir.enable = true;
   };
+  
+  hardware.logitech.wireless.enable = true;
 
   # services.spice-vdagentd.enable = true;
   # virtualisation = {
