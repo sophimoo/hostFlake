@@ -134,7 +134,7 @@ in
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -196,6 +196,8 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+  zramSwap.enable = true;
+
   programs = {
 
     steam = {
@@ -228,11 +230,11 @@ in
         echo -n -s "$nix_shell_info ~>"
       '';
       promptInit = ''
-      set -l nix_shell_info (
-        if test -n "$IN_NIX_SHELL"
-          echo -n "<nix-shell> "
-        end
-      )
+        set -l nix_shell_info (
+          if test -n "$IN_NIX_SHELL"
+            echo -n "<nix-shell> "
+          end
+        )
 
       '';
     };
@@ -309,7 +311,7 @@ in
     enableDefaultPackages = true;
     fontDir.enable = true;
   };
-  
+
   hardware.logitech.wireless.enable = true;
 
   # services.spice-vdagentd.enable = true;

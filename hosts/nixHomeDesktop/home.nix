@@ -21,7 +21,7 @@ in
   discordOverlay.enable = false;
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
 
-  spicetify.enable = true;
+  spicetify.enable = false;
   firefox.enable = true;
   textfox.enable = true;
   kitty.enable = true;
@@ -78,7 +78,6 @@ in
 
     chromium
 
-    filelight
     gparted
 
     wireguard-tools
@@ -92,6 +91,11 @@ in
     vdhcoapp
 
     piper
+
+    kdePackages.filelight
+    kdePackages.kclock
+    kdePackages.kcalc
+    kdePackages.qtstyleplugin-kvantum
 
   ];
 

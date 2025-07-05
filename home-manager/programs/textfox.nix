@@ -64,7 +64,7 @@ in
             "browser.toolbars.bookmarks.visibility" = "always";
           };
 
-          extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+          extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
             multi-account-containers
             adaptive-tab-bar-colour
             userchrome-toggle

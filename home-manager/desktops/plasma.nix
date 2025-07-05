@@ -170,18 +170,15 @@ in
 
       powerdevil = {
         AC = {
-          powerButtonAction = "hibernate";
+          powerButtonAction = "lockScreen";
           autoSuspend = {
-            action = "hibernate";
-            idleTimeout = 1500;
+            action = "shutDown";
+            idleTimeout = 1000;
           };
-          whenSleepingEnter = "standbyThenHibernate";
-          dimDisplay = {
-            enable = false;
+          turnOffDisplay = {
+            idleTimeout = 1000;
+            idleTimeoutWhenLocked = "immediately";
           };
-        };
-        general = {
-          pausePlayersOnSuspend = false;
         };
       };
 
