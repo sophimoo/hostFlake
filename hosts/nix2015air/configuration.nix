@@ -12,6 +12,7 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules
   ];
 
   # Bootloader
@@ -71,10 +72,9 @@ in
   services.mbpfan.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       vaapiIntel
       vaapiVdpau
@@ -114,7 +114,7 @@ in
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -214,17 +214,25 @@ in
     systemPackages = with pkgs; [
       appimage-run
       greetd.tuigreet
-
-      lexend
-      nerdfonts
     ];
 
   };
 
-  security.sudo.extraConfig = ''
-    Defaults env_reset,pwfeedback
-    Defaults env_keep += "EDITOR VISUAL"
-  '';
+  fonts = {
+    enable = true;
+    enableDefaultPackages = true;
+    fontDir.enable = true;
+  };
+
+
+  security.sudo = {
+    wheelNeedsPassword = false;
+    extraConfig = ''
+      Defaults env_reset,pwfeedback
+      Defaults env_keep += "EDITOR VISUAL"
+      Defaults timestamp_timeout=60
+    '';
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
