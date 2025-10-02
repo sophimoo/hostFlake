@@ -4,6 +4,7 @@
   imports = [
     ./fonts
     ./hardware
+    ./programs
   ];
 
 }

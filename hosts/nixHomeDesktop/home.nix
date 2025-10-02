@@ -21,12 +21,14 @@ in
   discordOverlay.enable = false;
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
 
-  spicetify.enable = false;
+  spicetify.enable = true;
   firefox.enable = true;
   textfox.enable = true;
   kitty.enable = true;
   lf.enable = true;
   vscode.enable = true;
+
+  davinciResolve.enable = true;
 
   rStudio-stat.enable = true;
 
@@ -59,6 +61,7 @@ in
     mpv
 
     gimp-with-plugins
+    krita
 
     libreoffice-qt6-fresh
 

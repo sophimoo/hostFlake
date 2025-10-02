@@ -224,7 +224,6 @@ in
     fontDir.enable = true;
   };
 
-
   security.sudo = {
     wheelNeedsPassword = false;
     extraConfig = ''

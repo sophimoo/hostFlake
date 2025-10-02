@@ -134,23 +134,34 @@ in
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
+  # services.pulseaudio.enable = false;
+  # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
+    enable = true; # if not already enabled
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
+    # If you want to use JACK applications, uncomment the following
     #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+
+  security.pam = {
+    # If enabled, pam_wallet will attempt to automatically unlock the user’s default KDE wallet upon login.
+    # If the user has no wallet named “kdewallet”, or the login password does not match their wallet password,
+    # KDE will prompt separately after login.
+    services = {
+      ${name} = {
+        kwallet = {
+          enable = true;
+          package = pkgs.kdePackages.kwallet-pam;
+        };
+      };
+    };
+};
 
   security.sudo = {
     wheelNeedsPassword = false;
@@ -198,16 +209,9 @@ in
 
   zramSwap.enable = true;
 
-  programs = {
+  steamGaming.enable = true;
 
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-      extest.enable = true;
-    };
+  programs = {
 
     bash = {
       interactiveShellInit = ''
@@ -251,15 +255,11 @@ in
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-    };
-
-    sessionVariables = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/user/.steam/root/compatibilitytools.d";
+      RUSTICL_ENABLE = "radeonsi";
     };
 
     systemPackages = with pkgs; [
 
-      gpu-screen-recorder
       gpu-screen-recorder-gtk
 
       pkgsi686Linux.gperftools
@@ -313,6 +313,8 @@ in
   };
 
   hardware.logitech.wireless.enable = true;
+
+  programs.gpu-screen-recorder.enable = true;
 
   # services.spice-vdagentd.enable = true;
   # virtualisation = {
@@ -368,6 +370,7 @@ in
     extraPackages = with pkgs; [
       rocmPackages.clr.icd
       mesa
+      mesa.opencl
       rocmPackages.rocblas
       rocmPackages.rocm-smi
       rocmPackages.rocminfo

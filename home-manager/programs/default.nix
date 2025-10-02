@@ -10,6 +10,7 @@
     ./lf.nix
     ./rstudio-stat.nix
     ./vscode.nix
+    ./davinciResolve.nix
   ];
 
 }
