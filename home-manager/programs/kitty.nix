@@ -25,6 +25,7 @@
           tab_bar_style = "powerline";
           tab_bar_min_tabs = 0;
         };
+	themeFile = "Atom";
       };
     };
   };

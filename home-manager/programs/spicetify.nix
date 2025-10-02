@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf (config.spicetify.enable && inputs ? spicetify-nix) {
+  config = lib.mkIf config.spicetify.enable {
 
     programs = {
       spicetify =
@@ -33,7 +33,7 @@
           enabledExtensions = with spicePkgs.extensions; [
             adblock
             hidePodcasts
-            shuffle
+            shuffle # shuffle+ (special characters are sanitized out of extension names)
           ];
 
         };
