@@ -74,7 +74,6 @@
         nixArmVM = mkSystem {
           hostname = "nixArmVM";
           system = "aarch64-linux";
-	  unstable = true;
         };
       };
     };

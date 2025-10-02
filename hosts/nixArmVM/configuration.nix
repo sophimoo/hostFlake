@@ -28,6 +28,8 @@ in
     timeout = 5;
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+
   boot.plymouth.enable = true;
   boot.plymouth.theme = "breeze";
 
@@ -174,6 +176,10 @@ in
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+  };
+
+  environment.sessionVariables = {
+    LIBGL_ALWAYS_SOFTWARE = "1";
   };
 
   environment.systemPackages = with pkgs; [
