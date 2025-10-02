@@ -26,21 +26,15 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hm-unstable, ... }@inputs:
     let
-      mkSystem = { hostname, system, unstable ? false }:
+      mkSystem = { hostname, system, unstable ? false, hmModules ? [] }:
         let
           pkgsInput = if unstable then nixpkgs-unstable else nixpkgs;
           hmInput = if unstable then hm-unstable else home-manager;
-
+          
           pkgs = import pkgsInput {
             inherit system;
             config.allowUnfree = true;
           };
-
-          homeManagerModules = with inputs; [
-            nix-flatpak.homeManagerModules.nix-flatpak
-            spicetify-nix.homeManagerModules.default
-            plasma-manager.homeManagerModules.plasma-manager
-          ];
         in
         pkgsInput.lib.nixosSystem {
           inherit system;
@@ -52,8 +46,8 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
-                users.sophie.imports =
-                  [ ./hosts/${hostname}/home.nix ] ++ homeManagerModules;
+                users.sophie.imports = 
+                  [ ./hosts/${hostname}/home.nix ] ++ hmModules;
               };
             }
           ];
@@ -64,16 +58,31 @@
         nix2015air = mkSystem {
           hostname = "nix2015air";
           system = "x86_64-linux";
+          hmModules = with inputs; [
+            nix-flatpak.homeManagerModules.nix-flatpak
+            spicetify-nix.homeManagerModules.default
+            plasma-manager.homeManagerModules.plasma-manager
+          ];
         };
 
         nixHomeDesktop = mkSystem {
           hostname = "nixHomeDesktop";
           system = "x86_64-linux";
+          hmModules = with inputs; [
+            nix-flatpak.homeManagerModules.nix-flatpak
+            spicetify-nix.homeManagerModules.default
+            plasma-manager.homeManagerModules.plasma-manager
+          ];
         };
 
         nixArmVM = mkSystem {
           hostname = "nixArmVM";
           system = "aarch64-linux";
+          unstable = true;
+          hmModules = with inputs; [
+            plasma-manager.homeManagerModules.plasma-manager
+            nix-flatpak.homeManagerModules.nix-flatpak
+          ];
         };
       };
     };
