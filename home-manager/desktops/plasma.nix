@@ -171,10 +171,6 @@ in
       powerdevil = {
         AC = {
           powerButtonAction = "lockScreen";
-          autoSuspend = {
-            action = "shutDown";
-            idleTimeout = 1000;
-          };
           turnOffDisplay = {
             idleTimeout = 1000;
             idleTimeoutWhenLocked = "immediately";

@@ -24,8 +24,11 @@
           initial_window_height = "34c";
           tab_bar_style = "powerline";
           tab_bar_min_tabs = 0;
+	  scrollbar = "always";
+	  scrollbar_interactive = "yes";
+	  cursor_trail = 1;
         };
-	themeFile = "Atom";
+	themeFile = "shadotheme";
       };
     };
   };

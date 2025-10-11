@@ -22,25 +22,22 @@
     plasma-manager.url = "github:nix-community/plasma-manager";
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.inputs.home-manager.follows = "home-manager";
+
+    stylix.url = "github:nix-community/stylix/release-25.05";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hm-unstable, ... }@inputs:
     let
-      mkSystem = { hostname, system, unstable ? false }:
+      mkSystem = { hostname, system, unstable ? false, hmModules ? [] }:
         let
           pkgsInput = if unstable then nixpkgs-unstable else nixpkgs;
           hmInput = if unstable then hm-unstable else home-manager;
-
+          
           pkgs = import pkgsInput {
             inherit system;
             config.allowUnfree = true;
           };
-
-          homeManagerModules = with inputs; [
-            nix-flatpak.homeManagerModules.nix-flatpak
-            spicetify-nix.homeManagerModules.default
-            plasma-manager.homeManagerModules.plasma-manager
-          ];
         in
         pkgsInput.lib.nixosSystem {
           inherit system;
@@ -52,8 +49,8 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
-                users.sophie.imports =
-                  [ ./hosts/${hostname}/home.nix ] ++ homeManagerModules;
+                users.sophie.imports = 
+                  [ ./hosts/${hostname}/home.nix ] ++ hmModules;
               };
             }
           ];
@@ -64,16 +61,35 @@
         nix2015air = mkSystem {
           hostname = "nix2015air";
           system = "x86_64-linux";
+          hmModules = with inputs; [
+            nix-flatpak.homeManagerModules.nix-flatpak
+            spicetify-nix.homeManagerModules.default
+            plasma-manager.homeManagerModules.plasma-manager
+            stylix.homeManagerModules.stylix
+          ];
         };
 
         nixHomeDesktop = mkSystem {
           hostname = "nixHomeDesktop";
           system = "x86_64-linux";
+          hmModules = with inputs; [
+            nix-flatpak.homeManagerModules.nix-flatpak
+            spicetify-nix.homeManagerModules.default
+            plasma-manager.homeManagerModules.plasma-manager
+            stylix.homeManagerModules.stylix
+          ];
         };
 
         nixArmVM = mkSystem {
           hostname = "nixArmVM";
           system = "aarch64-linux";
+          unstable = true;
+          hmModules = with inputs; [
+            nix-flatpak.homeManagerModules.nix-flatpak
+            spicetify-nix.homeManagerModules.default
+            plasma-manager.homeManagerModules.plasma-manager
+            stylix.homeManagerModules.stylix
+          ];
         };
       };
     };
