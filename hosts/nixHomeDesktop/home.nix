@@ -33,10 +33,12 @@ in
   rStudio-stat.enable = true;
 
   plasma-config.enable = true;
-  gtk-config.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
+
+  stylix.enable = false;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rebecca.yaml";
 
   home.packages = with pkgs; [
 
@@ -98,7 +100,9 @@ in
     kdePackages.filelight
     kdePackages.kclock
     kdePackages.kcalc
-    kdePackages.qtstyleplugin-kvantum
+    # kdePackages.qtstyleplugin-kvantum
+    # libsForQt5.qtstyleplugin-kvantum
+    # libsForQt5.qt5ct
 
   ];
 

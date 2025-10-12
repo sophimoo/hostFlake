@@ -161,7 +161,7 @@ in
         };
       };
     };
-};
+  };
 
   security.sudo = {
     wheelNeedsPassword = false;
@@ -256,6 +256,7 @@ in
       EDITOR = "nvim";
       VISUAL = "nvim";
       RUSTICL_ENABLE = "radeonsi";
+      # QT_QPA_PLATFORMTHEME = "qt5ct";
     };
 
     systemPackages = with pkgs; [

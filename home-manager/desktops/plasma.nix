@@ -22,6 +22,9 @@ in
 
   config = lib.mkIf config.plasma-config.enable {
 
+    gtk-config.enable = true;
+    qt-config.enable = true;
+
     home.packages = with pkgs; [
       papirus-icon-theme
     ];
@@ -35,6 +38,7 @@ in
         clickItemTo = "select";
         # iconTheme = "Colloid-Light";
         iconTheme = "Papirus";
+        lookAndFeel = "Monochrome";
         # wallpaper = "/home/sophie/Documents/wallpapers/mc_wallpaper_reversed_night.jpg";
         wallpaper = "${sophie-wallpaper}/mc_wallpaper_reversed_night.jpg";
       };

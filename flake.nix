@@ -16,7 +16,7 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix/24.11";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     plasma-manager.url = "github:nix-community/plasma-manager";
@@ -27,18 +27,31 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hm-unstable, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      hm-unstable,
+      ...
+    }@inputs:
     let
-      mkSystem = { hostname, system, unstable ? false }:
+      mkSystem =
+        {
+          hostname,
+          system,
+          unstable ? false,
+        }:
         let
           pkgsInput = if unstable then nixpkgs-unstable else nixpkgs;
           hmInput = if unstable then hm-unstable else home-manager;
-          
+
           pkgs = import pkgsInput {
             inherit system;
             config.allowUnfree = true;
           };
-          
+
           homeManagerModules = with inputs; [
             nix-flatpak.homeManagerModules.nix-flatpak
             spicetify-nix.homeManagerModules.default
@@ -56,8 +69,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
-                users.sophie.imports = 
-                  [ ./hosts/${hostname}/home.nix ] ++ homeManagerModules;
+                users.sophie.imports = [ ./hosts/${hostname}/home.nix ] ++ homeManagerModules;
               };
             }
           ];
