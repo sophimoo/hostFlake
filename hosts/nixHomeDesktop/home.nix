@@ -50,13 +50,6 @@ in
     jetbrains.pycharm-community
     jetbrains.idea-community
 
-    gamemode
-    mangohud
-    protonup
-    lutris
-    wine
-    rpcs3
-
     texliveFull
 
     qimgv
@@ -94,16 +87,6 @@ in
     virtualenv
 
     vdhcoapp
-
-    piper
-
-    kdePackages.filelight
-    kdePackages.kclock
-    kdePackages.kcalc
-    # kdePackages.qtstyleplugin-kvantum
-    # libsForQt5.qtstyleplugin-kvantum
-    # libsForQt5.qt5ct
-
   ];
 
   # This value determines the Home Manager release that your

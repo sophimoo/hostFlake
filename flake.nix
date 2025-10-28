@@ -17,7 +17,6 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     plasma-manager.url = "github:nix-community/plasma-manager";
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -50,6 +49,7 @@
           pkgs = import pkgsInput {
             inherit system;
             config.allowUnfree = true;
+	    allowUnfreePredicate = _: true;
           };
 
           homeManagerModules = with inputs; [

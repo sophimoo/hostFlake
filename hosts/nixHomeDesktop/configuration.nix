@@ -105,15 +105,7 @@ in
   # Enable hyprland
   programs.hyprland.enable = true;
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-session --asterisks --time --greeting '${name} on nixOS!'";
-        user = "greeter";
-      };
-    };
-  };
+  tuigreet.enable = true;
 
   systemd.tmpfiles.rules =
     let
@@ -128,7 +120,6 @@ in
     in
     [
       "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-      "d '/var/cache/tuigreet' - greeter greeter - -"
     ];
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -266,43 +257,22 @@ in
       pkgsi686Linux.gperftools
       gperftools
       appimage-run
-      greetd.tuigreet
 
-      zulu17
+      nixfmt-rfc-style
+      exfatprogs
+      protontricks
 
       clinfo
 
-      nixfmt-rfc-style
+      virt-manager
+      virt-viewer
+      spice 
+      spice-gtk
+      spice-protocol
+      win-virtio
+      win-spice
 
-      exfatprogs
-
-      protontricks
-
-      solaar
-
-      # looking-glass-client
-
-      # virtio-win
-      # virt-manager
-      # virt-viewer
-      # spice
-      # spice-gtk
-      # spice-protocol
-      # win-virtio
-      # win-spice
-
-      rocmPackages.rocm-smi
-      mesa
-      rocmPackages.rocblas
-      rocmPackages.rocm-smi
-      rocmPackages.rocminfo
-      rocmPackages.hipblas
-      rocmPackages.rocm-device-libs
-      rocmPackages.rpp
-      pcre2
-      libselinux
-      libcap
-
+      quickemu
     ];
 
   };
@@ -314,55 +284,26 @@ in
   };
 
   hardware.logitech.wireless.enable = true;
-
   programs.gpu-screen-recorder.enable = true;
 
-  # services.spice-vdagentd.enable = true;
-  # virtualisation = {
-  #   docker.enable = true;
-  #   waydroid.enable = true;
-  # };
-  #   virtualisation = {
-  #
-  #     docker = {
-  #       enable = true;
-  #     };
-  #
-  #     virtualbox = {
-  #       host = {
-  #         enable = false;
-  #         enableKvm = true;
-  #         enableExtensionPack = true;
-  #         addNetworkInterface = false;
-  #       };
-  #       guest = {
-  #         enable = true;
-  #         clipboard = true;
-  #         dragAndDrop = true;
-  #       };
-  #     };
-  #
-  #     libvirtd = {
-  #       enable = false;
-  #       qemu = {
-  #         package = pkgs.qemu_kvm;
-  #         runAsRoot = true;
-  #         swtpm.enable = true;
-  #         ovmf = {
-  #           enable = true;
-  #           packages = [
-  #             (pkgs.OVMF.override {
-  #               secureBoot = true;
-  #               tpmSupport = true;
-  #             }).fd
-  #           ];
-  #         };
-  #       };
-  #     };
-  #     spiceUSBRedirection.enable = true;
-  #   };
 
-  # users.extraGroups.vboxusers.members = [ "${name}" ];
+  services = {
+    qemuGuest.enable = true;
+    spice-vdagentd.enable = true;
+  };
+
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        vhostUserPackages = with pkgs; [ virtiofsd ];
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
 
   # Enable OpenGL
   hardware.graphics = {

@@ -19,6 +19,8 @@
 
   config = lib.mkIf config.spicetify.enable {
 
+    home.packages = with pkgs; [spicetify-cli];
+
     programs = {
       spicetify =
         let
@@ -26,6 +28,7 @@
         in
         {
           enable = true;
+          spicetifyPackage = pkgs.spicetify-cli;
           enabledCustomApps = with spicePkgs.apps; [
             historyInSidebar
             marketplace

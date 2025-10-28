@@ -1,6 +1,9 @@
 { pkgs, lib, ... }:
 {
 
-  imports = [ ./steam.nix ];
+  imports = [ 
+    ./steam.nix 
+    ./tuigreet.nix
+  ];
 
 }

@@ -27,6 +27,9 @@ in
 
     home.packages = with pkgs; [
       papirus-icon-theme
+      kdePackages.filelight
+      kdePackages.kclock
+      kdePackages.kcalc
     ];
 
     programs.plasma = {
@@ -176,7 +179,7 @@ in
         AC = {
           powerButtonAction = "lockScreen";
           turnOffDisplay = {
-            idleTimeout = 1000;
+            idleTimeout = 1100;
             idleTimeoutWhenLocked = "immediately";
           };
         };

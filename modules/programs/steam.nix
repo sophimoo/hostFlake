@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
 
   options = {
@@ -22,6 +22,14 @@
         extest.enable = true;
       };
     };
+
+    environment.systemPackages = with pkgs; [
+      gamemode
+      mangohud
+      protonup
+      lutris
+      wine
+    ];
   };
 
 }
