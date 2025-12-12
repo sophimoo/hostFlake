@@ -5,6 +5,7 @@
     ./fonts
     ./hardware
     ./programs
+    ./display-managers
   ];
 
 }

@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   lib,
+  unstable,
   ...
 }:
 
@@ -18,7 +19,7 @@ in
 
   imports = [ ../../home-manager ];
 
-  discordOverlay.enable = false;
+
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
 
   spicetify.enable = true;
@@ -27,6 +28,7 @@ in
   kitty.enable = true;
   lf.enable = true;
   vscode.enable = true;
+  obsConfig.enable = true;
 
   davinciResolve.enable = true;
 
@@ -52,6 +54,9 @@ in
 
     texliveFull
 
+    unstable.antigravity-fhs
+    unstable.code-cursor-fhs
+
     qimgv
     mpv
 
@@ -73,6 +78,10 @@ in
     tree
     p7zip
     rar
+
+    art
+    
+    opencode
 
     chromium
 

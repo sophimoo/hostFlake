@@ -34,15 +34,39 @@ in
       };
       timeout = 5;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "amd_iommu=on" ];
-
+    kernelPackages = pkgs.linuxPackages_zen;
+    kernelParams = [
+      "quiet"
+      "amd_iommu=on"
+      "iommu=pt"
+      "pcie_acs_override=downstream,multifunction"
+      "video=efifb:off"
+      "vfio-pci.ids=1002:164e,1002:1640" # Raphael
+      #       "vfio-pci.ids=1002:747e,1002:ab30" # 7700XT
+    ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      kvmfr
+      vendor-reset
+    ];
+    extraModprobeConfig = ''
+      options kvmfr static_size_mb=32
+    '';
+    initrd.kernelModules = [
+      "vendor-reset"
+      "kvmfr"
+      "vfio_pci"
+      "vfio"
+      "vfio_iommu_type1"
+    ];
     plymouth = {
       enable = true;
       theme = "breeze";
     };
-
   };
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="kvmfr", OWNER="${name}", GROUP="qemu-libvirtd", MODE="0660"
+  '';
 
   # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -93,6 +117,7 @@ in
 
     enable = true;
     autorun = false;
+    displayManager.startx.enable = true;
     # Configure keymap in X11
     xkb = {
       layout = "us";
@@ -251,6 +276,7 @@ in
     };
 
     systemPackages = with pkgs; [
+      lmstudio
 
       gpu-screen-recorder-gtk
 
@@ -263,18 +289,65 @@ in
       protontricks
 
       clinfo
+      pciutils
 
-      virt-manager
+      (pkgs.symlinkJoin {
+        name = "looking glass";
+        buildInputs = [ pkgs.makeWrapper ];
+        paths = [ pkgs.looking-glass-client ];
+        postBuild = ''
+          wrapProgram $out/bin/looking-glass-client \
+            --set __NV_DISABLE_EXPLICIT_SYNC 1
+        '';
+      })
+
       virt-viewer
-      spice 
+      spice
       spice-gtk
       spice-protocol
+      virtio-win
+      virtiofsd
       win-virtio
       win-spice
 
-      quickemu
     ];
 
+  };
+
+  programs.virt-manager.enable = true;
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd
+          ];
+        };
+        vhostUserPackages = with pkgs; [ virtiofsd ];
+        verbatimConfig = ''
+          cgroup_device_acl = [
+              "/dev/null",
+              "/dev/full",
+              "/dev/zero",
+              "/dev/random",
+              "/dev/urandom",
+              "/dev/ptmx",
+              "/dev/kvm",
+              "/dev/userfaultfd",
+              "/dev/kvmfr0"
+          ]
+        '';
+      };
+    };
+    spiceUSBRedirection.enable = true;
   };
 
   fonts = {
@@ -285,25 +358,6 @@ in
 
   hardware.logitech.wireless.enable = true;
   programs.gpu-screen-recorder.enable = true;
-
-
-  services = {
-    qemuGuest.enable = true;
-    spice-vdagentd.enable = true;
-  };
-
-  virtualisation = {
-    libvirtd = {
-      enable = true;
-      qemu = {
-        vhostUserPackages = with pkgs; [ virtiofsd ];
-        swtpm.enable = true;
-        ovmf.enable = true;
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
-      };
-    };
-    spiceUSBRedirection.enable = true;
-  };
 
   # Enable OpenGL
   hardware.graphics = {

@@ -19,7 +19,7 @@
 
   config = lib.mkIf config.spicetify.enable {
 
-    home.packages = with pkgs; [spicetify-cli];
+    home.packages = with pkgs; [ spicetify-cli ];
 
     programs = {
       spicetify =
@@ -39,6 +39,7 @@
             shuffle # shuffle+ (special characters are sanitized out of extension names)
           ];
 
+          theme = spicePkgs.themes.text;
         };
     };
   };

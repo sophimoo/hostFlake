@@ -2,14 +2,14 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-
-    hm-unstable.url = "github:nix-community/home-manager";
-    hm-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    hm-unstable.url = "github:nix-community/home-manager";
+    hm-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
@@ -33,23 +33,23 @@
       nixpkgs-unstable,
       home-manager,
       hm-unstable,
+      firefox-addons,
       ...
     }@inputs:
     let
-      mkSystem =
-        {
-          hostname,
-          system,
-          unstable ? false,
-        }:
+      mkSystem = { hostname, system, pkgs-unstable ? false }:
         let
-          pkgsInput = if unstable then nixpkgs-unstable else nixpkgs;
-          hmInput = if unstable then hm-unstable else home-manager;
+          pkgsInput = if pkgs-unstable then nixpkgs-unstable else nixpkgs;
+          hmInput = if pkgs-unstable then hm-unstable else home-manager;
 
           pkgs = import pkgsInput {
             inherit system;
             config.allowUnfree = true;
-	    allowUnfreePredicate = _: true;
+          };
+
+          unstable = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
           };
 
           homeManagerModules = with inputs; [
@@ -68,11 +68,13 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
+                extraSpecialArgs = { inherit inputs unstable; };
                 users.sophie.imports = [ ./hosts/${hostname}/home.nix ] ++ homeManagerModules;
               };
             }
           ];
+
+          specialArgs = { inherit inputs unstable; };
         };
     in
     {

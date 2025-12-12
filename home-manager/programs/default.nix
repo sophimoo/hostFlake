@@ -11,6 +11,7 @@
     ./rstudio-stat.nix
     ./vscode.nix
     ./davinciResolve.nix
+    ./obs.nix
   ];
 
 }

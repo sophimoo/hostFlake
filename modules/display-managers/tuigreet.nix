@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   name = "sophie";
@@ -22,7 +27,7 @@ in
     };
 
     systemd.tmpfiles.rules = [
-        "d '/var/cache/tuigreet' - greeter greeter - -"
+      "d '/var/cache/tuigreet' - greeter greeter - -"
     ];
 
     environment.systemPackages = with pkgs; [

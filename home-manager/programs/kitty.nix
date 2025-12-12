@@ -21,7 +21,7 @@
           remember_window_size = "no";
           resize_in_steps = "yes";
           initial_window_width = "120c";
-          initial_window_height = "34c";
+          initial_window_height = "36c";
           tab_bar_style = "powerline";
           tab_bar_min_tabs = 0;
           scrollbar = "always";

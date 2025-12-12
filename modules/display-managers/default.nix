@@ -2,8 +2,8 @@
 {
 
   imports = [
-    ./programs
-    ./desktops
+    ./tuigreet.nix
+    ./ly.nix
   ];
 
 }

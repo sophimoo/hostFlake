@@ -18,7 +18,6 @@ in
 
   imports = [ ../../home-manager ];
 
-  discordOverlay.enable = false;
   textfox.enable = true;
   kitty.enable = true;
   lf.enable = true;
