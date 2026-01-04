@@ -34,7 +34,7 @@ in
 
     gamemode
     mangohud
-    protonup
+    protonup-ng
 
     qimgv
     mpv

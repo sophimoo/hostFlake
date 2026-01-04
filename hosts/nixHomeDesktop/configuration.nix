@@ -65,7 +65,7 @@ in
   };
 
   services.udev.extraRules = ''
-    SUBSYSTEM=="kvmfr", OWNER="${name}", GROUP="qemu-libvirtd", MODE="0660"
+    KERNEL=="kvmfr0", GROUP="kvm", MODE="0660"
   '';
 
   # Define your hostname.
@@ -307,7 +307,6 @@ in
       spice-protocol
       virtio-win
       virtiofsd
-      win-virtio
       win-spice
 
     ];
@@ -321,16 +320,7 @@ in
       qemu = {
         package = pkgs.qemu_kvm;
         runAsRoot = true;
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMF.override {
-              secureBoot = true;
-              tpmSupport = true;
-            }).fd
-          ];
-        };
+        swtpm.enable = true; 
         vhostUserPackages = with pkgs; [ virtiofsd ];
         verbatimConfig = ''
           cgroup_device_acl = [

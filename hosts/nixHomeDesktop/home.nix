@@ -49,9 +49,6 @@ in
     goofcord
     arrpc
 
-    jetbrains.pycharm-community
-    jetbrains.idea-community
-
     texliveFull
 
     unstable.antigravity-fhs
@@ -81,7 +78,7 @@ in
 
     art
     
-    opencode
+    unstable.opencode
 
     chromium
 
