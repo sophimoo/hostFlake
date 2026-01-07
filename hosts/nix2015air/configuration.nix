@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   name = "sophie";
@@ -31,6 +31,7 @@ in
       };
       timeout = 5;
     };
+    initrd.kernelModules = ["wl"];
     plymouth = {
       enable = true;
       theme = "breeze";
@@ -216,6 +217,10 @@ in
       greetd.tuigreet
     ];
 
+  };
+  
+  nixpkgs.config = {
+    allowInsecurePredicate = pkg: builtins.elem (lib.getName pkg) [ "broadcom-sta" ];
   };
 
   fonts = {

@@ -23,6 +23,8 @@ in
   lf.enable = true;
   btop.enable = true;
 
+  plasma-config.enable = true; 
+
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";
 
@@ -51,6 +53,11 @@ in
     fastfetch
     atuin
     tmux
+
+    kdePackages.filelight
+    kdePackages.kclock
+    kdePackages.kcalc
+    kdePackages.qtstyleplugin-kvantum
 
   ];
 
