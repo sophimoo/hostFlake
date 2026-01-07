@@ -79,7 +79,9 @@ in
     art
     
     unstable.opencode
-
+    unstable.gemini-cli-bin
+    unstable.qwen-code
+   
     chromium
 
     gparted
