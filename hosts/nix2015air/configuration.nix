@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, oldStable, ... }:
 
 let
   name = "sophie";
@@ -221,7 +221,7 @@ in
     systemPackages = with pkgs; [
       appimage-run
       greetd.tuigreet
-      protontricks
+      oldStable.protontricks
       freetype
     ];
 

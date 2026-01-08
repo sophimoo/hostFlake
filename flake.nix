@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-oldStable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +32,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-oldStable,
       home-manager,
       hm-unstable,
       firefox-addons,
@@ -52,6 +54,11 @@
             config.allowUnfree = true;
           };
 
+          oldStable = import nixpkgs-oldStable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+
           homeManagerModules = with inputs; [
             nix-flatpak.homeManagerModules.nix-flatpak
             spicetify-nix.homeManagerModules.default
@@ -68,13 +75,13 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                extraSpecialArgs = { inherit inputs unstable; };
+                extraSpecialArgs = { inherit inputs unstable oldStable; };
                 users.sophie.imports = [ ./hosts/${hostname}/home.nix ] ++ homeManagerModules;
               };
             }
           ];
 
-          specialArgs = { inherit inputs unstable; };
+          specialArgs = { inherit inputs unstable oldStable; };
         };
     in
     {
