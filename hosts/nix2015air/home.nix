@@ -54,6 +54,8 @@ in
     atuin
     tmux
 
+    python315
+
     kdePackages.filelight
     kdePackages.kclock
     kdePackages.kcalc

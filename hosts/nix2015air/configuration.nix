@@ -32,6 +32,8 @@ in
       timeout = 5;
     };
     initrd.kernelModules = ["wl"];
+    blacklistedKernelModules = [ "b43" "bcma" ];
+    extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     plymouth = {
       enable = true;
       theme = "breeze";
@@ -72,17 +74,21 @@ in
   powerManagement.cpuFreqGovernor = "schedutil";
   services.mbpfan.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
-
+  hardware.bluetooth.enable = true;
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
     extraPackages = with pkgs; [
-      vaapiIntel
-      vaapiVdpau
+      intel-vaapi-driver
+      libva-vdpau-driver
       libvdpau-va-gl
-      intel-media-sdk # For broadwell which this device has with a 5250U
+      intel-media-driver
+      # intel-media-sdk # For broadwell which this device has with a 5250U
     ];
   };
+  hardware.enableAllFirmware = true;
+  hardware.firmware = [ pkgs.broadcom-bt-firmware ];
+
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -215,6 +221,8 @@ in
     systemPackages = with pkgs; [
       appimage-run
       greetd.tuigreet
+      protontricks
+      freetype
     ];
 
   };
