@@ -23,7 +23,7 @@
 
         commands = {
           dragon-out = ''%${pkgs.dragon-drop}/bin/dragon-drop -a -x "$fx"'';
-          editor-open = ''$$EDITOR $f'';
+          editor-open = "$$EDITOR $f";
           mkdir = ''
             ''${{
               printf "Directory Name: "

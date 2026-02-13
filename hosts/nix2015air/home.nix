@@ -23,7 +23,7 @@ in
   lf.enable = true;
   btop.enable = true;
 
-  plasma-config.enable = true; 
+  plasma-config.enable = true;
 
   home.username = "${name}";
   home.homeDirectory = "/home/${name}";

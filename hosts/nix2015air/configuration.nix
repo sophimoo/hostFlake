@@ -2,7 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, oldStable, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  oldStable,
+  ...
+}:
 
 let
   name = "sophie";
@@ -31,8 +37,11 @@ in
       };
       timeout = 5;
     };
-    initrd.kernelModules = ["wl"];
-    blacklistedKernelModules = [ "b43" "bcma" ];
+    initrd.kernelModules = [ "wl" ];
+    blacklistedKernelModules = [
+      "b43"
+      "bcma"
+    ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     plymouth = {
       enable = true;
@@ -88,7 +97,6 @@ in
   };
   hardware.enableAllFirmware = true;
   hardware.firmware = [ pkgs.broadcom-bt-firmware ];
-
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -226,7 +234,7 @@ in
     ];
 
   };
-  
+
   nixpkgs.config = {
     allowInsecurePredicate = pkg: builtins.elem (lib.getName pkg) [ "broadcom-sta" ];
   };

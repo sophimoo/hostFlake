@@ -19,7 +19,6 @@ in
 
   imports = [ ../../home-manager ];
 
-
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
 
   spicetify.enable = true;
@@ -77,11 +76,15 @@ in
     rar
 
     art
-    
+
+    jetbrains.idea
+
     unstable.opencode
     unstable.gemini-cli-bin
     unstable.qwen-code
-   
+
+    discordo
+
     chromium
 
     gparted

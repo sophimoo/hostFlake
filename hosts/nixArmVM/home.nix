@@ -18,7 +18,6 @@ in
 
   imports = [ ../../home-manager ];
 
-
   # if this is enabled while having already used firefox on the system home-manager will fail due to .mozilla conflict
   firefox.enable = true;
   textfox.enable = true;

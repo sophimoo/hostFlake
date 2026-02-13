@@ -39,7 +39,12 @@
       ...
     }@inputs:
     let
-      mkSystem = { hostname, system, pkgs-unstable ? false }:
+      mkSystem =
+        {
+          hostname,
+          system,
+          pkgs-unstable ? false,
+        }:
         let
           pkgsInput = if pkgs-unstable then nixpkgs-unstable else nixpkgs;
           hmInput = if pkgs-unstable then hm-unstable else home-manager;

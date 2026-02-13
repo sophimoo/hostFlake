@@ -5,6 +5,7 @@
 {
   config,
   pkgs,
+  oldStable,
   fetchpatch,
   ...
 }:
@@ -92,6 +93,7 @@ in
         ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
         ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
       '';
+      # allowedTCPPorts = [ 8000 ];
     };
   };
 
@@ -227,37 +229,9 @@ in
 
   steamGaming.enable = true;
 
+  fishShell.enable = true;
+
   programs = {
-
-    bash = {
-      interactiveShellInit = ''
-        if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-        then
-          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-        fi
-      '';
-    };
-
-    fish = {
-      enable = true;
-      shellInit = ''
-        atuin init fish | source
-        set fish_greeting # Disable greeting
-        fastfetch
-        alias beammp "protontricks-launch -vv --appid 284160 '/run/media/sophie/2TB SSD/SteamLibrary/steamapps/compatdata/284160/pfx/drive_c/users/steamuser/AppData/Roaming/BeamMP-Launcher/BeamMP-Launcher.exe'"
-
-        echo -n -s "$nix_shell_info ~>"
-      '';
-      promptInit = ''
-        set -l nix_shell_info (
-          if test -n "$IN_NIX_SHELL"
-            echo -n "<nix-shell> "
-          end
-        )
-
-      '';
-    };
 
     appimage = {
       enable = true;
@@ -286,7 +260,7 @@ in
 
       nixfmt-rfc-style
       exfatprogs
-      protontricks
+      oldStable.protontricks
 
       clinfo
       pciutils
@@ -320,7 +294,7 @@ in
       qemu = {
         package = pkgs.qemu_kvm;
         runAsRoot = true;
-        swtpm.enable = true; 
+        swtpm.enable = true;
         vhostUserPackages = with pkgs; [ virtiofsd ];
         verbatimConfig = ''
           cgroup_device_acl = [
